@@ -1,0 +1,16 @@
+作者致言
+
+<p>非常欢迎您使用Ever Simple Blog (ESBlog)，这是一个非常简单的blog程序，主旨是实用，希望大家喜欢。</p>
+<p>以下是两段利用geshi显示源代码的效果：
+<pre class="_geshi_c">#include <stdio.h>
+
+int main(int argc, char ** argv) {
+    printf("Hello, world!\n");
+    return 0;
+}
+</pre>
+<pre class="_geshi_php"><?php
+echo "Hello, world!<br />\n";
+?>
+</pre>
+</p>
