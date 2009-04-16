@@ -1,11 +1,28 @@
 <h1><?php echo $lang['blog_form']; ?></h1>
-<script type="text/javascript" language="javascript" src="jquery-min.js"></script>
-<script type="text/javascript" language="javascript" src="jquery-ui-resizable.min.js"></script>
+<script type="text/javascript" language="javascript" src="tiny-mce/tiny_mce.js"></script>
 <script type="text/javascript" language="javascript">
 <!--
-$(function() {
-    $("#textarea").resizable();
+tinyMCE.init({
+    mode : "textareas",
+    theme : "advanced",
+    skin : "o2k7",
+    plugins : "safari,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,imagemanager,filemanager",
+    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect",
+    theme_advanced_buttons2 : "cut,copy,paste,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+    theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,ltr,rtl,|,fullscreen",
+    theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+    theme_advanced_toolbar_location : "top",
+    theme_advanced_toolbar_align : "left",
+    theme_advanced_statusbar_location : "bottom",
+    theme_advanced_resizing : true
 });
+
+function toggleEditor(id) {
+    if (!tinyMCE.get(id))
+        tinyMCE.execCommand('mceAddControl', false, id);
+    else
+        tinyMCE.execCommand('mceRemoveControl', false, id);
+}
 
 function checkblog(form)
 {
@@ -53,7 +70,8 @@ for ($i = 0; $i < count($categories); $i++)
 }
 ?>
 </select><br />
-<?php echo $lang['content']; ?>:<br />
+<?php echo $lang['content']; ?>:
+<a href="javascript:toggleEditor('content');return false;">[<?php echo $lang['toggle_editor']; ?>]</a><br />
 <textarea id="content" name="content" rows="12" cols="64"><?php echo $blog['content']; ?></textarea><br />
 <br />
 <input type="submit" name="bsubmit" value="<?php echo $lang['save']; ?>" />

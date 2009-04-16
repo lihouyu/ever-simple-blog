@@ -14,6 +14,7 @@ $lang = array(
     'blog_form'    => '日志表单',
     'title'        => '标题',
     'content'    => '正文',
+    'toggle_editor'    => '切换编辑器',
     'save'        => '保存',
     'blog_list'    => '日志列表',
     'edit'        => '编辑',

@@ -14,6 +14,7 @@ $lang = array(
     'blog_form'    => 'blog form',
     'title'        => 'title',
     'content'    => 'content',
+    'toggle_editor'    => 'toggle editor',
     'save'        => 'save',
     'blog_list'    => 'blog list',
     'edit'        => 'edit',
