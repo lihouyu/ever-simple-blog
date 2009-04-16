@@ -3,19 +3,14 @@
 <script type="text/javascript" language="javascript" src="jquery-ui-resizable.min.js"></script>
 <script type="text/javascript" language="javascript">
 <!--
-$(document).ready(function() {
-    $("textarea").resizable({
-        handles: "s", 
-        animate: true, 
-    	animateDuration: "fast", 
-    	animateEasing: "swing"
-    });
+$(function() {
+    $("#textarea").resizable();
 });
 
 function checkblog(form)
 {
     var has_error = false;
-    
+
     if (/^\s*$/.test(form.elements["title"].value))
     {
         document.getElementById("msg_title").innerHTML = "<?php echo $lang['blog_title_empty']; ?>";
@@ -26,7 +21,7 @@ function checkblog(form)
     {
         document.getElementById("msg_title").style.display = "none";
     }
-    
+
     if (has_error)
     {
         return false;
