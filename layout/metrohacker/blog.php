@@ -1,6 +1,6 @@
 <h1><?php echo $lang['blog_form']; ?></h1>
-<script type="text/javascript" language="javascript" src="tiny_mce/tiny_mce_gzip.js"></script>
-<script type="text/javascript" language="javascript">
+<!-- script type="text/javascript" language="javascript" src="tiny_mce/tiny_mce_gzip.js"></script -->
+<!-- script type="text/javascript" language="javascript">
 tinyMCE_GZ.init({
     plugins : "spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,imagemanager,filemanager",
 	themes : "advanced",
@@ -8,7 +8,9 @@ tinyMCE_GZ.init({
 	disk_cache : true,
 	debug : false
 });
-</script>
+</script -->
+<script type="text/javascript" language="javascript" src="tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" language="javascript" src="tiny_mce/plugins/tinybrowser/tb_tinymce.js.php"></script>
 <script type="text/javascript" language="javascript">
 <!--
 tinyMCE.init({
@@ -25,7 +27,8 @@ tinyMCE.init({
     theme_advanced_resizing : true,
     button_tile_map : true,
     entity_encoding : "raw",
-    verify_html : false
+    verify_html : false,
+    file_browser_callback : "tinyBrowser"
 });
 
 function toggleEditor(id) {
