@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title><?php echo $site_name; ?></title>
+<title><?php echo $page_title.' '; ?>:: <?php echo $site_name; ?></title>
 <link rel="stylesheet" type="text/css" href="layout/metrohacker/style.css" />
 <link rel="stylesheet" type="text/css" href="vcode.css" />
 <link rel="alternate" type="application/rss+xml" title="RSS feed for bloggem.net" href="rss.php" />

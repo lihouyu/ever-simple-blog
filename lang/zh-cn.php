@@ -62,6 +62,8 @@ $lang = array(
     'post_comment'    => '发表评论',
     'said'        => '说',
     'back_to_top'    => '返回页首',
-    'tz_error' => '时区错误！'
+    'tz_error' => '时区错误！',
+    'new_category' => '新建分类',
+    'new_blog' => '新建日志'
 );
 ?>

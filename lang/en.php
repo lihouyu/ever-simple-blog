@@ -62,6 +62,8 @@ $lang = array(
     'post_comment'    => 'post comment',
     'said'        => 'said',
     'back_to_top'    => 'back to top',
-    'tz_error' => 'timezone error!'
+    'tz_error' => 'timezone error!',
+    'new_category' => 'new category',
+    'new_blog' => 'new blog'
 );
 ?>

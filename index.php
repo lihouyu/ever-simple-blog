@@ -42,7 +42,7 @@ function category_create($category_name)
 function category_delete($category_name)
 {
     $base64_category_name = base64_encode($category_name);
-    
+
     if ($category_folder = opendir(realpath(BLOG_FOLDER.'/cate_'.$base64_category_name)))
     {
         while (false !== ($blog_serial = readdir($category_folder)))
@@ -51,11 +51,11 @@ function category_delete($category_name)
             {
                 continue;
             }
-            
+
             blog_move($blog_serial, $category_name, 'general');
         }
         closedir($category_folder);
-        
+
         return rmdir(BLOG_FOLDER.'/cate_'.$base64_category_name);
     }
     else
@@ -77,7 +77,7 @@ function category_list()
             }
         }
         closedir($blog_folder);
-        
+
         return $arr_category_names;
     }
     else
@@ -90,12 +90,12 @@ function blog_parse_serial($blog_serial)
 {
     list($microsecond, $serial) = explode('-', $blog_serial, 2);
     list($timestamp, $archivedate) = explode('.', $serial, 2);
-    
+
     $arr_serial['microsecond'] = $microsecond;
     $arr_serial['timestamp'] = $timestamp;
     $arr_serial['publishtime'] = date('Y-m-d H:i:s', $timestamp);
     $arr_serial['archivedate'] = $archivedate;
-    
+
     return $arr_serial;
 }
 
@@ -103,18 +103,18 @@ function blog_save($blog_serial, $blog_title, $blog_content, $category_name = 'g
 {
     $blog_file = BLOG_FOLDER.'/cate_'.base64_encode($category_name).'/'.$blog_serial;
     $blog_title = htmlspecialchars($blog_title);
-    
+
     $blog_fp = fopen($blog_file, 'w');
     $write_blog_rs = fwrite($blog_fp, $blog_title."\n\n".$blog_content);
     fclose($blog_fp);
-    
+
     return $write_blog_rs;
 }
 
 function blog_create($blog_title, $blog_content, $category_name = 'general')
 {
     $blog_serial = str_replace(' ', '-', microtime()).'.'.date('Y-m-d');
-    
+
     return blog_save($blog_serial, $blog_title, $blog_content, $category_name);
 }
 
@@ -129,19 +129,19 @@ function blog_read($blog_serial, $category_name)
     if (file_exists($blog_file))
     {
         $blog = array();
-        
+
         $blog_fp = fopen($blog_file, 'r');
         $blog_string = fread($blog_fp, filesize($blog_file));
         fclose($blog_fp);
-        
-        list($blog['title'], $blog['content']) = 
+
+        list($blog['title'], $blog['content']) =
             explode("\n\n", $blog_string, 2);
         $arr_serial = blog_parse_serial($blog_serial);
         $blog['serial'] = $blog_serial;
         $blog['publishtime'] = $arr_serial['publishtime'];
         $blog['timestamp'] = $arr_serial['timestamp'];
         $blog['category'] = $category_name;
-        
+
         return $blog;
     }
     else
@@ -152,7 +152,7 @@ function blog_read($blog_serial, $category_name)
 
 function blog_move($blog_serial, $src_category_name, $dst_category_name)
 {
-    if (copy(BLOG_FOLDER.'/cate_'.base64_encode($src_category_name).'/'.$blog_serial, 
+    if (copy(BLOG_FOLDER.'/cate_'.base64_encode($src_category_name).'/'.$blog_serial,
         BLOG_FOLDER.'/cate_'.base64_encode($dst_category_name).'/'.$blog_serial))
     {
         return blog_delete($blog_serial, $src_category_name);
@@ -166,9 +166,9 @@ function blog_move($blog_serial, $src_category_name, $dst_category_name)
 function blog_list($search_key = '')
 {
     $search_key = trim($search_key);
-    
+
     $blogs = array();
-    
+
     if ($blog_folder = opendir(realpath(BLOG_FOLDER)))
     {
         while (false !== ($category_name = readdir($blog_folder)))
@@ -183,7 +183,7 @@ function blog_list($search_key = '')
                         {
                             continue;
                         }
-                        
+
                         $arr_serial = blog_parse_serial($blog_serial);
                         if (!empty($search_key))
                         {
@@ -191,19 +191,19 @@ function blog_list($search_key = '')
                             $replace_entities = array('|', '\\\\', '\\|', '\\{', '\\}', '\\[', '\\]', '\\.', '\\+', '\\*');
                             $search_key = str_replace($entities, $replace_entities, $search_key);
                             $blog = blog_read($blog_serial, base64_decode(substr($category_name, 5)));
-                            if (preg_match('/'.$search_key.'/', $blog['title']) 
+                            if (preg_match('/'.$search_key.'/', $blog['title'])
                                 || preg_match('/'.$search_key.'/', $blog['content']))
                             {
-                                $blogs[] = array('serial' => $blog['serial'], 
-                                    'timestamp' => $arr_serial['timestamp'], 
+                                $blogs[] = array('serial' => $blog['serial'],
+                                    'timestamp' => $arr_serial['timestamp'],
                                     'category' => $blog['category']);
                             }
                             //unset($blog);
                         }
                         else
                         {
-                            $blogs[] = array('serial' => $blog_serial, 
-                                'timestamp' => $arr_serial['timestamp'], 
+                            $blogs[] = array('serial' => $blog_serial,
+                                'timestamp' => $arr_serial['timestamp'],
                                 'category' => base64_decode(substr($category_name, 5)));
                         }
                     }
@@ -216,7 +216,7 @@ function blog_list($search_key = '')
             }
         }
         closedir($blog_folder);
-        
+
         return $blogs;
     }
     else
@@ -228,7 +228,7 @@ function blog_list($search_key = '')
 function blog_list_by_category($category_name)
 {
     $blogs = array();
-    
+
     if ($category_folder = opendir(realpath(BLOG_FOLDER.'/cate_'.base64_encode($category_name))))
     {
         while (false !== ($blog_serial = readdir($category_folder)))
@@ -237,14 +237,14 @@ function blog_list_by_category($category_name)
             {
                 continue;
             }
-            
+
             $arr_serial = blog_parse_serial($blog_serial);
-            $blogs[] = array('serial' => $blog_serial, 
-                'timestamp' => $arr_serial['timestamp'], 
+            $blogs[] = array('serial' => $blog_serial,
+                'timestamp' => $arr_serial['timestamp'],
                 'category' => $category_name);
         }
         closedir($category_folder);
-        
+
         return $blogs;
     }
     else
@@ -256,11 +256,11 @@ function blog_list_by_category($category_name)
 function blog_list_by_archive($archive_date)
 {
     $blogs = array();
-    
+
     $start_stamp = strtotime(date('Y-m-01 00:00:00', strtotime($archive_date)));
-    $end_stamp = mktime(0, 0, 0, intval(date('n', strtotime($archive_date))) + 1, 
+    $end_stamp = mktime(0, 0, 0, intval(date('n', strtotime($archive_date))) + 1,
         1, date('Y', strtotime($archive_date)));
-    
+
     if ($blog_folder = opendir(realpath(BLOG_FOLDER)))
     {
         while (false !== ($category_name = readdir($blog_folder)))
@@ -275,13 +275,13 @@ function blog_list_by_archive($archive_date)
                         {
                             continue;
                         }
-                        
+
                         $arr_serial = blog_parse_serial($blog_serial);
-                        if (intval($arr_serial['timestamp']) >= $start_stamp && 
+                        if (intval($arr_serial['timestamp']) >= $start_stamp &&
                             intval($arr_serial['timestamp']) < $end_stamp)
                         {
-                            $blogs[] = array('serial' => $blog_serial, 
-                                'timestamp' => $arr_serial['timestamp'], 
+                            $blogs[] = array('serial' => $blog_serial,
+                                'timestamp' => $arr_serial['timestamp'],
                                 'category' => base64_decode(substr($category_name, 5)));
                         }
                     }
@@ -294,7 +294,7 @@ function blog_list_by_archive($archive_date)
             }
         }
         closedir($blog_folder);
-        
+
         return $blogs;
     }
     else
@@ -306,13 +306,13 @@ function blog_list_by_archive($archive_date)
 function blog_sort($arr_blog_list)
 {
     if (!$arr_blog_list) return false;
-    
+
     $list_length = count($arr_blog_list);
     for ($i = 1; $i <= $list_length; $i++)
     {
         for ($j = $list_length - 1; $j >= $i; $j--)
         {
-            if ($arr_blog_list[$j]['timestamp'] 
+            if ($arr_blog_list[$j]['timestamp']
                 > $arr_blog_list[$j - 1]['timestamp'])
             {
                 $swap = $arr_blog_list[$j - 1];
@@ -321,20 +321,20 @@ function blog_sort($arr_blog_list)
             }
         }
     }
-    
+
     return $arr_blog_list;
 }
 
 function blog_page($curr_page, $blog_array)
 {
     global $blogs_per_page;
-    
+
     $total_pages = ceil(count($blog_array) / $blogs_per_page);
     if ($total_pages < 1)
     {
         $total_pages = 1;
     }
-    
+
     if (empty($curr_page) || !is_numeric($curr_page) || $curr_page < 1)
     {
         $curr_page = 1;
@@ -343,42 +343,42 @@ function blog_page($curr_page, $blog_array)
     {
         $curr_page = $total_pages;
     }
-    
+
     $start_index = ($curr_page - 1) * $blogs_per_page;
     $end_index = $start_index + $blogs_per_page - 1;
-    
+
     $blogs = array();
     for ($i = $start_index; $i <= $end_index; $i++)
     {
         if (isset($blog_array[$i]))
         {
-            $blogs[] = blog_read($blog_array[$i]['serial'], 
+            $blogs[] = blog_read($blog_array[$i]['serial'],
                 $blog_array[$i]['category']);
         }
     }
-    
+
     $prev_page = $curr_page - 1;
     if ($prev_page < 1)
     {
         $prev_page = 1;
     }
-    
+
     $next_page = $curr_page + 1;
     if ($next_page > $total_pages)
     {
         $next_page = $total_pages;
     }
-    
+
     $pager_html = '<div id="pagebar"><ul>'
         .'<li>&nbsp;<a href="'.pager_build_uri(1).'">&laquo;</a>&nbsp;</li>'
         .'<li>&nbsp;<a href="'.pager_build_uri($prev_page).'">&lsaquo;</a>&nbsp;</li>'
         .'<li>&nbsp;<a href="'.pager_build_uri($next_page).'">&rsaquo;</a>&nbsp;</li>'
         .'<li>&nbsp;<a href="'.pager_build_uri($total_pages).'">&raquo;</a>&nbsp;</li>'
         .'<li>&nbsp;'.$curr_page.'&nbsp;/&nbsp;'.$total_pages.'&nbsp;</li></ul></div>';
-    
+
     $result['blogs'] = $blogs;
     $result['pager'] = $pager_html;
-    
+
     return $result;
 }
 
@@ -386,12 +386,12 @@ function comment_parse_serial($comment_serial)
 {
     list($blog_serial, $microtime) = explode('#', $comment_serial);
     list($microsecond, $timestamp) = explode('-', $microtime);
-    
+
     $arr_serial['microsecond'] = $microsecond;
     $arr_serial['timestamp'] = $timestamp;
     $arr_serial['commenttime'] = date('Y-m-d H:i:s', $timestamp);
     $arr_serial['blogserial'] = $blog_serial;
-    
+
     return $arr_serial;
 }
 
@@ -400,18 +400,18 @@ function comment_save($comment_serial, $comment_author, $comment_content)
     $comment_file = COMMENT_FOLDER.'/'.$comment_serial;
     $comment_author = htmlspecialchars($comment_author);
     $comment_content = htmlspecialchars($comment_content);
-    
+
     $comment_fp = fopen($comment_file, 'w');
     $write_comment_rs = fwrite($comment_fp, $comment_author."\n\n".$comment_content);
     fclose($comment_fp);
-    
+
     return $write_comment_rs;
 }
 
 function comment_create($blog_serial, $comment_author, $comment_content)
 {
     $comment_serial = $blog_serial.'#'.str_replace(' ', '-', microtime());
-    
+
     return comment_save($comment_serial, $comment_author, $comment_content);
 }
 
@@ -421,19 +421,19 @@ function comment_read($comment_serial)
     if (file_exists($comment_file))
     {
         $comment = array();
-        
+
         $comment_fp = fopen($comment_file, 'r');
         $comment_string = fread($comment_fp, filesize($comment_file));
         fclose($comment_fp);
-        
-        list($comment['author'], $comment['content']) = 
+
+        list($comment['author'], $comment['content']) =
             explode("\n\n", $comment_string, 2);
         $arr_serial = comment_parse_serial($comment_serial);
         $comment['serial'] = $comment_serial;
         $comment['commenttime'] = $arr_serial['commenttime'];
         $comment['timestamp'] = $arr_serial['timestamp'];
         $comment['blogserial'] = $arr_serial['blogserial'];
-        
+
         return $comment;
     }
     else
@@ -450,9 +450,9 @@ function comment_delete($comment_serial)
 function comment_list_by_blog($blog_serial)
 {
     $blog_serial = str_replace('.', '\\.', $blog_serial);
-    
+
     $comments = array();
-    
+
     if ($comment_folder = opendir(realpath(COMMENT_FOLDER)))
     {
         while (false !== ($comment_serial = readdir($comment_folder)))
@@ -463,7 +463,7 @@ function comment_list_by_blog($blog_serial)
             }
         }
         closedir($comment_folder);
-        
+
         return $comments;
     }
     else
@@ -475,13 +475,13 @@ function comment_list_by_blog($blog_serial)
 function comment_sort($arr_comment_list)
 {
     if (!$arr_comment_list) return false;
-    
+
     $list_length = count($arr_comment_list);
     for ($i = 1; $i <= $list_length; $i++)
     {
         for ($j = $list_length - 1; $j >= $i; $j--)
         {
-            if ($arr_comment_list[$j]['timestamp'] 
+            if ($arr_comment_list[$j]['timestamp']
                 > $arr_comment_list[$j - 1]['timestamp'])
             {
                 $swap = $arr_comment_list[$j - 1];
@@ -490,7 +490,7 @@ function comment_sort($arr_comment_list)
             }
         }
     }
-    
+
     return $arr_comment_list;
 }
 
@@ -498,7 +498,7 @@ function archive_list()
 {
     $hash_archive_list = array();
     $arr_archive_list = array();
-    
+
     if ($blog_folder = opendir(realpath(BLOG_FOLDER)))
     {
         while (false !== ($category_name = readdir($blog_folder)))
@@ -513,9 +513,9 @@ function archive_list()
                         {
                             continue;
                         }
-                        
+
                         $arr_serial = blog_parse_serial($blog_serial);
-                        $hash_archive_list[date('M Y', $arr_serial['timestamp'])] = 
+                        $hash_archive_list[date('M Y', $arr_serial['timestamp'])] =
                             date('M Y', $arr_serial['timestamp']);
                     }
                     closedir($category_folder);
@@ -523,7 +523,7 @@ function archive_list()
             }
         }
         closedir($blog_folder);
-        
+
         if (!empty($hash_archive_list))
         {
             foreach ($hash_archive_list as $key => $archive_date)
@@ -531,7 +531,7 @@ function archive_list()
                 $arr_archive_list[] = $archive_date;
             }
         }
-        
+
         return $arr_archive_list;
     }
     else
@@ -543,13 +543,13 @@ function archive_list()
 function archive_sort($arr_archive_list)
 {
     if (!$arr_archive_list) return false;
-    
+
     $list_length = count($arr_archive_list);
     for ($i = 1; $i <= $list_length; $i++)
     {
         for ($j = $list_length - 1; $j >= $i; $j--)
         {
-            if (strtotime($arr_archive_list[$j]) 
+            if (strtotime($arr_archive_list[$j])
                 > strtotime($arr_archive_list[$j - 1]))
             {
                 $swap = $arr_archive_list[$j - 1];
@@ -558,7 +558,7 @@ function archive_sort($arr_archive_list)
             }
         }
     }
-    
+
     return $arr_archive_list;
 }
 
@@ -566,15 +566,15 @@ function admin_check()
 {
     global $admin_name;
     global $admin_pwd;
-    
-    if (!isset($_SESSION[$_SERVER['HTTP_HOST']]['admin_name']) 
+
+    if (!isset($_SESSION[$_SERVER['HTTP_HOST']]['admin_name'])
         || !isset($_SESSION[$_SERVER['HTTP_HOST']]['admin_pwd']))
     {
         return false;
     }
     else
     {
-        if ($_SESSION[$_SERVER['HTTP_HOST']]['admin_name'] != $admin_name 
+        if ($_SESSION[$_SERVER['HTTP_HOST']]['admin_name'] != $admin_name
             || $_SESSION[$_SERVER['HTTP_HOST']]['admin_pwd'] != $admin_pwd)
         {
             return false;
@@ -590,12 +590,12 @@ function admin_login($login_admin_name, $login_admin_pwd, $login_admin_vcode)
 {
     global $admin_name;
     global $admin_pwd;
-    
+
     if ($login_admin_vcode != $_SESSION[$_SERVER['HTTP_HOST']]['vcode']) {
         return false;
     }
-    
-    if ($admin_name == $login_admin_name 
+
+    if ($admin_name == $login_admin_name
         && $admin_pwd == md5($login_admin_pwd))
     {
         $_SESSION[$_SERVER['HTTP_HOST']]['admin_name'] = $admin_name;
@@ -620,7 +620,7 @@ function referer_check()
     {
         $arr_referer = array();
         preg_match('/^http:\/\/([^\/]+)/', $_SERVER['HTTP_REFERER'], $arr_referer);
-        
+
         if (isset($arr_referer[1]))
         {
             if (trim($arr_referer[1]) == $_SERVER['HTTP_HOST'])
@@ -646,7 +646,7 @@ function referer_check()
 function pager_build_uri($page)
 {
     $uri_string = '&amp;p='.$page;
-    
+
     if (isset($_GET))
     {
         foreach ($_GET as $key => $value)
@@ -667,7 +667,7 @@ function pager_build_uri($page)
             }
         }
     }
-    
+
     if (empty($uri_string))
     {
         return 'index.php';
@@ -682,7 +682,7 @@ function load_side_blocks() {
     global $lang;
     global $site_tpl;
     global $blocks;
-    
+
     if (sizeof($blocks) <= 0) {
         return false;
     }
@@ -713,7 +713,7 @@ function tpl_list() {
             }
         }
         closedir($tpl_folder);
-        
+
         return $arr_tpl_names;
     }
     else
@@ -734,7 +734,7 @@ function lang_list() {
             $arr_lang_names[] = str_replace('.php', '', $lang_name);
         }
         closedir($lang_folder);
-        
+
         return $arr_lang_names;
     }
     else
@@ -745,7 +745,7 @@ function lang_list() {
 
 function block_list() {
     global $site_tpl;
-    
+
     if ($block_folder = opendir(realpath(TPL_FOLDER.'/'.$site_tpl.'/'.BLOCK_FOLDER)))
     {
         $arr_block_names = array();
@@ -757,7 +757,7 @@ function block_list() {
             $arr_block_names[] = str_replace('.php', '', $block_name);
         }
         closedir($block_folder);
-        
+
         return $arr_block_names;
     }
     else
@@ -781,13 +781,13 @@ function reformat_callback($matches) {
 }
 
 function reformat_embeded_code($content) {
-    return preg_replace_callback('/<pre class="_geshi_(.+?)">(.+?)<\/pre>/ims', 
+    return preg_replace_callback('/<pre class="_geshi_(.+?)">(.+?)<\/pre>/ims',
         "reformat_callback", $content);
 }
 
 include_once LANG_FOLDER.'/'.$site_lang.'.php';
 
-if (version_compare(phpversion(), '5.1.0', '>') && 
+if (version_compare(phpversion(), '5.1.0', '>') &&
     !empty($your_tz))
 {
     if (!date_default_timezone_set($your_tz))
@@ -848,7 +848,7 @@ switch ($action)
             header('Location:index.php');
             exit();
         }
-        
+
         if (isset($_GET['e']))
         {
             $has_error = true;
@@ -857,12 +857,13 @@ switch ($action)
         {
             $has_error = false;
         }
-        
+
+        $page_title = $lang['admin_login'];
         $page_body = TPL_FOLDER.'/'.$site_tpl.'/login.php';
     break;
     case '2': // do login
         if (!referer_check()) die();
-        
+
         if (admin_login($_POST['admin_name'], $_POST['admin_pwd'], $_POST['admin_vcode']))
         {
             if (empty($forward_page))
@@ -886,7 +887,8 @@ switch ($action)
         if (admin_check())
         {
             $categories = category_list();
-            
+
+            $page_title = $lang['new_category'];
             $page_body = TPL_FOLDER.'/'.$site_tpl.'/category.php';
         }
         else
@@ -902,13 +904,18 @@ switch ($action)
             {
                 $blog = blog_read($blog_serial, $category_name);
             }
-            
+
             $categories = category_list();
-            
+
             $page_blogs = blog_page($curr_page, blog_sort(blog_list('')));
             $blogs = $page_blogs['blogs'];
             $pager_html = $page_blogs['pager'];
-            
+
+            if ($blog) {
+                $page_title = $lang['edit'].' :: '.$blog['title'];
+            } else {
+                $page_title = $lang['new_blog'];
+            }
             $page_body = TPL_FOLDER.'/'.$site_tpl.'/blog.php';
         }
         else
@@ -919,22 +926,22 @@ switch ($action)
     break;
     case '5': // do logout
         if (!referer_check()) die();
-        
+
         admin_logout();
-        
+
         header('Location:index.php');
         exit;
     break;
     case '6': // delete category
         if (!referer_check()) die();
-        
+
         if (admin_check())
         {
             if ($category_name != 'general')
             {
                 category_delete($category_name);
             }
-            
+
             header('Location:index.php?ac=3');
             exit();
         }
@@ -946,14 +953,14 @@ switch ($action)
     break;
     case '7': // create category
         if (!referer_check()) die();
-        
+
         if (admin_check())
         {
             if ($category_name != 'general')
             {
                 category_create($category_name);
             }
-            
+
             header('Location:index.php?ac=3');
             exit();
         }
@@ -965,7 +972,7 @@ switch ($action)
     break;
     case '8': // save blog
         if (!referer_check()) die();
-        
+
         if (admin_check())
         {
             if (!empty($blog_serial))
@@ -980,7 +987,7 @@ switch ($action)
             {
                 blog_create($_POST['title'], $_POST['content'], $category_name);
             }
-            
+
             header('Location:index.php?ac=4');
             exit();
         }
@@ -992,11 +999,11 @@ switch ($action)
     break;
     case '9': // delete blog
         if (!referer_check()) die();
-        
+
         if (admin_check())
         {
             blog_delete($blog_serial, $category_name);
-            
+
             header('Location:index.php?ac=4');
             exit();
         }
@@ -1008,19 +1015,19 @@ switch ($action)
     break;
     case '10': // add comment
         if (!referer_check()) die();
-        
+
         comment_create($blog_serial, $_POST['comment_author'], $_POST['comment_content']);
-        
+
         header('Location:index.php?b='.$blog_serial.'&c='.$category_name);
         exit();
     break;
     case '11': // delete comment
         if (!referer_check()) die();
-        
+
         if (admin_check())
         {
             comment_delete($comment_serial);
-            
+
             header('Location:index.php?b='.$blog_serial.'&c='.$category_name);
             exit();
         }
@@ -1041,7 +1048,7 @@ switch ($action)
             {
                 $has_error = false;
             }
-            
+
             $tpls = tpl_list();
             $langs = lang_list();
             $avail_blocks = block_list();
@@ -1059,7 +1066,8 @@ switch ($action)
                 }
                 $block_str = substr($block_str, 1);
             }
-            
+
+            $page_title = $lang['general_settings'];
             $page_body = TPL_FOLDER.'/'.$site_tpl.'/settings.php';
         }
         else
@@ -1070,7 +1078,7 @@ switch ($action)
     break;
     case '13': // save general settings
         if (!referer_check()) die();
-        
+
         if (admin_check())
         {
             $new_blocks = '\''.str_replace(',', '\', \'', $_POST['blocks']).'\'';
@@ -1119,7 +1127,7 @@ switch ($action)
             $settings .= "\$your_tz = '".trim($_POST['your_tz'])."';\n";
             $settings .= "\$blocks = array({$new_blocks});\n"
                 ."?>";
-            
+
             file_put_contents('secret.php', $settings);
             header('Location:index.php?ac=12');
             exit();
@@ -1136,33 +1144,37 @@ switch ($action)
             if (empty($category_name) && empty($archive_date))
             {
                 $blogs = blog_list($search_key);
+                $page_title = $lang['search'].' :: '.$search_key;
             }
             else if (!empty($category_name))
             {
                 $blogs = blog_list_by_category($category_name);
+                $page_title = $lang['category'].' :: '.$category_name;
             }
             else if (!empty($archive_date))
             {
                 $blogs = blog_list_by_archive($archive_date);
+                $page_title = $lang['archive'].' :: '.$archive_date;
             }
-            
+
             $page_blogs = blog_page($curr_page, blog_sort($blogs));
             $blogs = $page_blogs['blogs'];
             $pager_html = $page_blogs['pager'];
-            
+
             $page_body = TPL_FOLDER.'/'.$site_tpl.'/main.php';
         }
         else
         {
-        	include_once 'geshi.php';
-        	
+            include_once 'geshi.php';
+
             $blog = blog_read($blog_serial, $category_name);
-            
+
             $blog['content'] = reformat_embeded_code($blog['content']);
-            
+
             $comments = comment_list_by_blog($blog_serial);
             $comments = comment_sort($comments);
-            
+
+            $page_title = $blog['title'];
             $page_body = TPL_FOLDER.'/'.$site_tpl.'/blog_comment.php';
         }
     break;
