@@ -1144,7 +1144,9 @@ switch ($action)
             if (empty($category_name) && empty($archive_date))
             {
                 $blogs = blog_list($search_key);
-                $page_title = $lang['search'].' :: '.$search_key;
+                if (strlen(trim($search_key)) > 0) {
+                    $page_title = $lang['search'].' :: '.$search_key;
+                }
             }
             else if (!empty($category_name))
             {
