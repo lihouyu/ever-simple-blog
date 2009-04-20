@@ -3,12 +3,12 @@ Ever Simple Blog (ESiBlog)
 Author: Li HouYu, Shanghai, China
 
 Term:
-These original codes included in ESBlog (Ever Simple Blog) are written and owned 
-by Li HouYu. And the FCKeditor is owned by the FCKeditor development team. For details, 
-read 'fckeditor/license.txt'.
+These original codes included in ESBlog (Ever Simple Blog) are written and owned
+by Li HouYu. And the tinyMCE is owned by the tinyMCE development team. For details,
+read 'tiny_mce/license.txt'.
 
 For using:
-You have to accept the term above for using this program, while I don't care you 
+You have to accept the term above for using this program, while I don't care you
 using it for personal or commercial purpose.
 
 For installation:
