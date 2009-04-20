@@ -21,6 +21,37 @@ define('COMMENT_FOLDER', 'comment');
 define('TPL_FOLDER', 'layout');
 define('LANG_FOLDER', 'lang');
 define('BLOCK_FOLDER', 'block');
+define('PAGE_FOLDER', 'page');
+
+function page_save($page_serial, $page_title, $page_content)
+{
+
+}
+
+function page_create($page_title, $page_content)
+{
+
+}
+
+function page_read($page_serail)
+{
+
+}
+
+function page_list()
+{
+
+}
+
+function page_delete($page_serial)
+{
+
+}
+
+function page_parse_serial($page_serial)
+{
+
+}
 
 function category_exists($category_name)
 {
