@@ -25,17 +25,44 @@ define('PAGE_FOLDER', 'page');
 
 function page_save($page_serial, $page_title, $page_content)
 {
+    $page_file = PAGE_FOLDER.'/'.$page_serial;
+    $page_title = htmlspecialchars($page_title);
 
+    $write_page_rs = file_put_contents($page_file,
+        $page_title."\n\n".$page_content);
+
+    return $write_page_rs;
 }
 
 function page_create($page_title, $page_content)
 {
+    $page_serial = str_replace(' ', '-', microtime()).'.'.date('Y-m-d');
 
+    return blog_save($page_serial, $page_title, $page_content);
 }
 
-function page_read($page_serail)
+function page_read($page_serial)
 {
+    $page_file = PAGE_FOLDER.'/'.$page_serial;
+    if (file_exists($page_file))
+    {
+        $page = array();
 
+        $page_string = file_get_contents($page_file);
+
+        list($page['title'], $page['content']) =
+            explode("\n\n", $page_string, 2);
+        $arr_serial = page_parse_serial($page_serial);
+        $page['serial'] = $page_serial;
+        $page['publishtime'] = $arr_serial['publishtime'];
+        $page['timestamp'] = $arr_serial['timestamp'];
+
+        return $page;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 function page_list()
@@ -45,12 +72,20 @@ function page_list()
 
 function page_delete($page_serial)
 {
-
+    return unlink(PAGE_FOLDER.'/'.$page_serial);
 }
 
 function page_parse_serial($page_serial)
 {
+    list($microsecond, $serial) = explode('-', $page_serial, 2);
+    list($timestamp, $archivedate) = explode('.', $serial, 2);
 
+    $arr_serial['microsecond'] = $microsecond;
+    $arr_serial['timestamp'] = $timestamp;
+    $arr_serial['publishtime'] = date('Y-m-d H:i:s', $timestamp);
+    $arr_serial['archivedate'] = $archivedate;
+
+    return $arr_serial;
 }
 
 function category_exists($category_name)
