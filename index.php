@@ -67,7 +67,29 @@ function page_read($page_serial)
 
 function page_list()
 {
+    $pages = array();
 
+    if ($page_folder = opendir(realpath(PAGE_FOLDER)))
+    {
+        while (false !== ($page_serial = readdir($page_folder)))
+        {
+            if (preg_match('/^\./', $page_serial))
+            {
+                continue;
+            }
+
+            $arr_serial = page_parse_serial($page_serial);
+            $pages[] = array('serial' => $page_serial,
+                'timestamp' => $arr_serial['timestamp']);
+        }
+        closedir($page_folder);
+
+        return $pages;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 function page_delete($page_serial)
