@@ -110,6 +110,27 @@ function page_parse_serial($page_serial)
     return $arr_serial;
 }
 
+function page_sort($arr_page_list) {
+    if (!$arr_page_list) return false;
+
+    $list_length = count($arr_page_list);
+    for ($i = 1; $i <= $list_length; $i++)
+    {
+        for ($j = $list_length - 1; $j >= $i; $j--)
+        {
+            if ($arr_page_list[$j]['timestamp']
+                > $arr_page_list[$j - 1]['timestamp'])
+            {
+                $swap = $arr_page_list[$j - 1];
+                $arr_page_list[$j - 1] = $arr_page_list[$j];
+                $arr_page_list[$j] = $swap;
+            }
+        }
+    }
+
+    return $arr_page_list;
+}
+
 function category_exists($category_name)
 {
     return file_exists(realpath(BLOG_FOLDER.'/cate_'.base64_encode($category_name)));
