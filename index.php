@@ -929,6 +929,7 @@ if (ini_get('magic_quotes_gpc'))
 if (!category_exists('general')) category_create('general');
 
 // get parameters
+// TODO: Check key existance for both $_GET and $POST and get the existing value
 $category_name = empty($_POST['c'])?$_GET['c']:$_POST['c'];
 $previous_category_name = empty($_POST['pc'])?$_GET['pc']:$_POST['pc'];
 $archive_date = empty($_POST['a'])?$_GET['a']:$_POST['a'];
