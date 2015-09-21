@@ -44,7 +44,7 @@ date_default_timezone_set($your_tz);
 
 // Laguage maps from ESiBlog
 $esiblog_lang = array(
-    'en' => 'en_EN',
+    'en' => 'en_EN', // This is the default fallback
     'zh-cn' => 'zh_CN',
 );
 /** // */
@@ -174,7 +174,7 @@ $config = array(
 	|--------------------------------------------------------------------------
 	*/
 	/** 'default_language' => "en_EN", */
-    'default_language' => $esiblog_lang[$site_lang],
+    'default_language' => empty($esiblog_lang[$site_lang])?$esiblog_lang['en']:$esiblog_lang[$site_lang],
 
 	/*
 	|--------------------------------------------------------------------------
