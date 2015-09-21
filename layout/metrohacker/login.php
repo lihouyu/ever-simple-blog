@@ -1,5 +1,5 @@
 <h1><?php echo $lang['admin_login']; ?></h1>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 <!--
 function chklogin(form)
 {
@@ -61,8 +61,8 @@ function chklogin(form)
 <input type="hidden" name="f" value="<?php echo $forward_page; ?>" />
 </p>
 </form>
-<script type="text/javascript" language="javascript" src="jquery-min.js"></script>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript" src="jquery-min.js"></script>
+<script type="text/javascript">
 <!--
 $.get("vcode.php", function(data){
   $("#vcode").append(data);

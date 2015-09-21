@@ -56,7 +56,7 @@ if (admin_check())
 ?>
 </div>
 <div class="blog">
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 <!--
 function chkcomment(form)
 {

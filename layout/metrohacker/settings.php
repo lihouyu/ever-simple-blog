@@ -1,5 +1,5 @@
 <h1><?php echo $lang['general_settings']; ?></h1>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 <!--
 function checksettings(form)
 {

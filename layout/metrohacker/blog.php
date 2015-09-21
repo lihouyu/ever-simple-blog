@@ -1,41 +1,32 @@
 <h1><?php echo $lang['blog_form']; ?></h1>
-<!-- script type="text/javascript" language="javascript" src="tiny_mce/tiny_mce_gzip.js"></script -->
-<!-- script type="text/javascript" language="javascript">
-tinyMCE_GZ.init({
-    plugins : "spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,imagemanager,filemanager",
-	themes : "advanced",
-	languages : "en",
-	disk_cache : true,
-	debug : false
-});
-</script -->
-<script type="text/javascript" language="javascript" src="tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" language="javascript" src="tiny_mce/plugins/tinybrowser/tb_tinymce.js.php"></script>
-<script type="text/javascript" language="javascript">
+<script type="text/javascript" src="jquery-min.js"></script>
+<script type="text/javascript" src="tiny_mce/tinymce.gzip.js"></script>
+<script type="text/javascript">
 <!--
-tinyMCE.init({
-    mode : "none",
-    theme : "advanced",
-    skin : "o2k7",
-    plugins : "spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,imagemanager,filemanager",
-    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,sub,sup,|,forecolor,backcolor,|,fontselect,fontsizeselect,|,removeformat,styleprops,|,link,unlink,anchor,image",
-    theme_advanced_buttons2 : "bullist,numlist,|,justifyleft,justifycenter,justifyright,justifyfull,outdent,indent,blockquote,|,ltr,rtl,|,tablecontrols",
-    theme_advanced_buttons3 : "undo,redo,cut,copy,paste,search,replace,|,insertlayer,moveforward,movebackward,absolute,|,insertdate,inserttime,charmap,emotions,iespell,media,advhr,nonbreaking,pagebreak,|,preview,cleanup,code,fullscreen",
-    theme_advanced_toolbar_location : "top",
-    theme_advanced_toolbar_align : "left",
-    theme_advanced_statusbar_location : "bottom",
-    theme_advanced_resizing : true,
-    button_tile_map : true,
-    entity_encoding : "raw",
-    verify_html : false,
-    file_browser_callback : "tinyBrowser"
+tinymce.init({
+    selector: "textarea#content",
+    theme: "modern",
+    menubar: false,
+    image_advtab: true,
+    plugins: [
+        "link hr charmap anchor pagebreak code fullscreen image media nonbreaking table emoticons textcolor responsivefilemanager"
+    ],
+    toolbar: [
+        "undo redo | cut copy paste | responsivefilemanager | image media | link unlink | anchor emoticons charmap | code fullscreen",
+        "fontselect fontsizeselect forecolor backcolor | bold italic underline strikethrough subscript superscript",
+        "table | alignleft aligncenter alignright alignjustify | outdent indent | bullist numlist | blockquote hr pagebreak nonbreaking",
+    ],
+    external_filemanager_path: "<?php echo $context_root; ?>filemanager/",
+    filemanager_title: "Responsive Filemanager",
+    external_plugins: { "filemanager": "<?php echo $context_root; ?>filemanager/plugin.min.js" },
+    filemanager_sort_by: "name",
 });
 
 function toggleEditor(id) {
     if (!tinyMCE.get(id)) {
-        tinyMCE.execCommand("mceAddControl", false, id);
+    	tinymce.execCommand("mceAddControl", false, id);
     } else {
-        tinyMCE.execCommand("mceRemoveControl", false, id);
+    	tinymce.execCommand("mceRemoveControl", false, id);
     }
 }
 

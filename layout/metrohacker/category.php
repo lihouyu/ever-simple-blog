@@ -14,7 +14,7 @@ for ($i = 0, $size = count($categories); $i < $size; $i++)
 ?>
 </p>
 <br />
-<script type="text/javascript" language="javascript">
+<script type="text/javascript">
 <!--
 function checkcategory(form)
 {

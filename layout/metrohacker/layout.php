@@ -5,7 +5,7 @@
 <title><?php echo $page_title.' '; ?>:: <?php echo $site_name; ?></title>
 <link rel="stylesheet" type="text/css" href="layout/metrohacker/style.css" />
 <link rel="stylesheet" type="text/css" href="vcode.css" />
-<link rel="alternate" type="application/rss+xml" title="RSS feed for bloggem.net" href="rss.php" />
+<link rel="alternate" type="application/rss+xml" title="RSS feed for <?php echo $site_name; ?>" href="rss.php" />
 </head>
 
 <body>
