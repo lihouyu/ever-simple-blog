@@ -1,4 +1,6 @@
 Copy secret-dist.php to secret.php to start blogging.
+For making it nicely working, you should configure $context_root and $your_tz
+properly at least. 
 
 License of usage:
   For using ESiBlog itself, there's no restriction.
