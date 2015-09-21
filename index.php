@@ -930,16 +930,16 @@ if (!category_exists('general')) category_create('general');
 
 // get parameters
 // TODO: Check key existance for both $_GET and $POST and get the existing value
-$category_name = empty($_POST['c'])?$_GET['c']:$_POST['c'];
-$previous_category_name = empty($_POST['pc'])?$_GET['pc']:$_POST['pc'];
-$archive_date = empty($_POST['a'])?$_GET['a']:$_POST['a'];
-$action = empty($_POST['ac'])?$_GET['ac']:$_POST['ac'];
-$search_key = empty($_POST['s'])?$_GET['s']:$_POST['s'];
-$blog_serial = empty($_POST['b'])?$_GET['b']:$_POST['b'];
-$forward_page = empty($_POST['f'])?$_GET['f']:$_POST['f'];
-$comment_serial = empty($_POST['bc'])?$_GET['bc']:$_POST['bc'];
-$template_name = empty($_POST['t'])?$_GET['t']:$_POST['t'];
-$curr_page = empty($_POST['p'])?$_GET['p']:$_POST['p'];
+$category_name = empty($_POST['c'])?(empty($_GET['c'])?FALSE:$_GET['c']):$_POST['c'];
+$previous_category_name = empty($_POST['pc'])?(empty($_GET['pc'])?FALSE:$_GET['pc']):$_POST['pc'];
+$archive_date = empty($_POST['a'])?(empty($_GET['a'])?FALSE:$_GET['a']):$_POST['a'];
+$action = empty($_POST['ac'])?(empty($_GET['ac'])?FALSE:$_GET['ac']):$_POST['ac'];
+$search_key = empty($_POST['s'])?(empty($_GET['s'])?FALSE:$_GET['s']):$_POST['s'];
+$blog_serial = empty($_POST['b'])?(empty($_GET['b'])?FALSE:$_GET['b']):$_POST['b'];
+$forward_page = empty($_POST['f'])?(empty($_GET['f'])?FALSE:$_GET['f']):$_POST['f'];
+$comment_serial = empty($_POST['bc'])?(empty($_GET['bc'])?FALSE:$_GET['bc']):$_POST['bc'];
+$template_name = empty($_POST['t'])?(empty($_GET['t'])?FALSE:$_GET['t']):$_POST['t'];
+$curr_page = empty($_POST['p'])?(empty($_GET['p'])?FALSE:$_GET['p']):$_POST['p'];
 
 if ($enable_uri_tpl)
 {
@@ -1251,6 +1251,7 @@ switch ($action)
     default: // blog list
         if (empty($blog_serial))
         {
+        	$page_title = $lang['home'];
             if (empty($category_name) && empty($archive_date))
             {
                 $blogs = blog_list($search_key);
