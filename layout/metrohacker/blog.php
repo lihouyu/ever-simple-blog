@@ -75,7 +75,7 @@ function checkblog(form)
 <?php
 if ($categories)
 {
-for ($i = 0; $i < count($categories); $i++)
+for ($i = 0, $size = count($categories); $i < $size; $i++)
 {
 ?>
 <option value="<?php echo $categories[$i]; ?>"<?php if ($blog['category'] == $categories[$i]) echo ' selected="selected"'; ?>>
@@ -102,7 +102,7 @@ for ($i = 0; $i < count($categories); $i++)
 <?php
 if ($blogs)
 {
-for ($i = 0; $i < count($blogs); $i++)
+for ($i = 0, $size = count($blogs); $i < $size; $i++)
 {
 ?>
 [&nbsp;<a href="index.php?ac=4&amp;b=<?php echo $blogs[$i]['serial']; ?>&amp;c=<?php echo urlencode($blogs[$i]['category']); ?>"><?php echo $lang['edit']; ?></a>&nbsp;]

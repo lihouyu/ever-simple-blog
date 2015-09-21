@@ -1,7 +1,7 @@
 <?php
 if ($blogs)
 {
-for ($i = 0; $i < count($blogs); $i++)
+for ($i = 0, $size = count($blogs); $i < $size; $i++)
 {
 ?>
 <div class="blog">

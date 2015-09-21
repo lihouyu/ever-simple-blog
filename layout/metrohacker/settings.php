@@ -109,7 +109,7 @@ if ($has_error)
 <?php
 if ($tpls)
 {
-for ($i = 0; $i < count($tpls); $i++)
+for ($i = 0, $size = count($tpls); $i < $size; $i++)
 {
 ?>
 <option value="<?php echo $tpls[$i]; ?>"<?php if ($site_tpl == $tpls[$i]) echo ' selected="selected"'; ?>>
@@ -124,7 +124,7 @@ for ($i = 0; $i < count($tpls); $i++)
 <?php
 if ($langs)
 {
-for ($i = 0; $i < count($langs); $i++)
+for ($i = 0, $size = count($langs); $i < $size; $i++)
 {
 ?>
 <option value="<?php echo $langs[$i]; ?>"<?php if ($site_lang == $langs[$i]) echo ' selected="selected"'; ?>>

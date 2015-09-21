@@ -1010,6 +1010,7 @@ switch ($action)
     case '4': // blog form
         if (admin_check())
         {
+        	$blog = FALSE;
             if (!empty($blog_serial))
             {
                 $blog = blog_read($blog_serial, $category_name);
@@ -1164,14 +1165,14 @@ switch ($action)
             $avail_blocks = block_list();
             $avail_blocks_str = '';
             if ($avail_blocks) {
-                for ($i = 0; $i < sizeof($avail_blocks); $i++) {
+                for ($i = 0, $size = count($avail_blocks); $i < $size; $i++) {
                     $avail_blocks_str .= ','.$avail_blocks[$i];
                 }
                 $avail_blocks_str = substr($avail_blocks_str, 1);
             }
             $block_str = '';
             if (sizeof($blocks) > 0) {
-                for ($i = 0; $i < sizeof($blocks); $i++) {
+                for ($i = 0, $size = count($blocks); $i < $size; $i++) {
                     $block_str .= ','.$blocks[$i];
                 }
                 $block_str = substr($block_str, 1);

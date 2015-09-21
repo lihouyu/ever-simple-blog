@@ -51,7 +51,7 @@ class MatrixVCode {
     }
     
     function _formLine($rand_s, $line) {
-        for ($i = 0; $i < strlen($rand_s); $i++) {
+        for ($i = 0, $len = strlen($rand_s); $i < $len; $i++) {
             $line_s .= $this->_getCharLine(substr($rand_s, $i, 1), $line);
         }
         return $line_s;
@@ -71,9 +71,9 @@ class MatrixVCode {
         $lines =& $this->_genBinaryMatrix($rand_s);
         
         $html = '<table id="MVCode" cellspacing="0">'."\n";
-        for ($i = 0; $i < sizeof($lines); $i++) {
+        for ($i = 0, $size = count($lines); $i < $size; $i++) {
             $html .= '<tr>';
-            for ($j = 0; $j < strlen($lines[$i]); $j++) {
+            for ($j = 0, $len = strlen($lines[$i]); $j < $len; $j++) {
                 if (mt_rand(0, 15) % 16 == 0) {
                     $html .= '<td class="d"></td>';
                 } else {

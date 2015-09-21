@@ -6,7 +6,7 @@
 <?php
 if ($archives)
 {
-for ($i = 0; $i < count($archives); $i++)
+for ($i = 0, $size = count($archives); $i < $size; $i++)
 {
 ?>
 <li><a href="index.php?a=<?php echo urlencode($archives[$i]); ?>"><?php echo $archives[$i]; ?></a></li>

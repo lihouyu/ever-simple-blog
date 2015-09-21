@@ -3,7 +3,7 @@
 <?php
 if ($categories)
 {
-for ($i = 0; $i < count($categories); $i++)
+for ($i = 0, $size = count($categories); $i < $size; $i++)
 {
 ?>
 [&nbsp;<a href="index.php?ac=6&amp;c=<?php echo urlencode($categories[$i]); ?>"><?php echo $lang['delete']; ?></a>&nbsp;]

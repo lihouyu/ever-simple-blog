@@ -28,7 +28,7 @@ if (admin_check())
 // display comment list
 if ($comments)
 {
-for ($i = 0; $i < count($comments); $i++)
+for ($i = 0, $size = count($comments); $i < $size; $i++)
 {
 ?>
 <p>
@@ -50,7 +50,7 @@ if (admin_check())
 <?php echo $comments[$i]['content']; ?>
 </blockquote>
 </p>
-<?
+<?php
 }
 }
 ?>

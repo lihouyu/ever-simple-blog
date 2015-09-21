@@ -6,7 +6,7 @@
 <?php
 if ($categories)
 {
-for ($i = 0; $i < count($categories); $i++)
+for ($i = 0, $size = count($categories); $i < $size; $i++)
 {
 ?>
 <li><a href="index.php?c=<?php echo urlencode($categories[$i]); ?>"><?php echo $categories[$i]; ?></a></li>
