@@ -1,1 +1,12 @@
 Copy secret-dist.php to secret.php to start blogging.
+
+License of usage:
+  For using ESiBlog itself, there's no restriction.
+  But when using for commercial purpose, you may want to consult license
+  or developer of other projects listed below for restrictions, 
+  especially for Responsive Filemanager.
+  
+Other projects ESiBlog is using:
+ * GeSHi - Generic Syntax Highlighter -- http://qbnz.com/highlighter/
+ * TinyMCE -- http://www.tinymce.com/
+ * Responsive Filemanager -- http://www.responsivefilemanager.com/
