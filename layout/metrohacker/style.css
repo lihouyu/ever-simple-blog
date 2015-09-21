@@ -231,6 +231,12 @@ color: #666;
 background-color: inherit;
 }
 
+.blog_img_thumbs img
+{
+height: 80px;
+border: 1px solid #222;
+}
+
 div#pagebar ul
 {
 list-style: none;

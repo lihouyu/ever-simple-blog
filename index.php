@@ -22,6 +22,8 @@ define('TPL_FOLDER', 'layout');
 define('LANG_FOLDER', 'lang');
 define('BLOCK_FOLDER', 'block');
 define('PAGE_FOLDER', 'page');
+define('UPLOAD_FOLDER', 'upload');
+define('THUMBS_FOLDER', 'thumbs');
 
 function page_save($page_serial, $page_title, $page_content)
 {
@@ -223,8 +225,9 @@ function blog_save($blog_serial, $blog_title, $blog_content, $category_name = 'g
 function blog_create($blog_title, $blog_content, $category_name = 'general')
 {
     $blog_serial = str_replace(' ', '-', microtime()).'.'.date('Y-m-d');
-
-    return blog_save($blog_serial, $blog_title, $blog_content, $category_name);
+    $blog_save_rs = blog_save($blog_serial, $blog_title, $blog_content, $category_name);
+    
+    return $blog_save_rs?$blog_serial:$blog_save_rs;
 }
 
 function blog_delete($blog_serial, $category_name)
@@ -875,10 +878,28 @@ function block_list() {
     }
 }
 
+function get_blog_imgs($content) {
+    /* Extract images if there's any */
+    $content_images = array();
+    $blog_images = array();
+    preg_match_all('/<img[^>]+?src=["\'](.+?)["\']/i', $content, $content_images);
+    // Replace with thumbs image
+    if (($size = count($content_images[1])) > 0) {
+        for ($i = 0; $i < $size; $i++) {
+            $blog_images[] = preg_replace('/^'.UPLOAD_FOLDER.'/', THUMBS_FOLDER,
+                    $content_images[1][$i]);
+        }
+    }
+    return $blog_images;
+}
+
 function get_blog_short($content, $short_len = 240) {
     $content = strip_tags($content);
-    mb_internal_encoding('UTF-8');
-    return mb_substr($content, 0, $short_len);
+    if (strlen(trim($content)) > 0) {
+        mb_internal_encoding('UTF-8');
+        return mb_substr($content, 0, $short_len);
+    } else
+        return FALSE;
 }
 
 function reformat_callback($matches) {
@@ -1096,10 +1117,11 @@ switch ($action)
             }
             else
             {
-                blog_create($_POST['title'], $_POST['content'], $category_name);
+                $blog_serial = blog_create($_POST['title'], $_POST['content'], $category_name);
             }
 
-            header('Location:index.php?ac=4');
+            //header('Location:index.php?ac=4');
+            header('Location:index.php?b='.$blog_serial.'&c='.urlencode($category_name));
             exit();
         }
         else
