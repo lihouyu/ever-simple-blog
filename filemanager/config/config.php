@@ -133,7 +133,7 @@ $config = array(
 	| DO NOT put inside upload folder
 	|
 	*/
-	'thumbs_base_path' => '../upload/thumbs/',
+	'thumbs_base_path' => '../thumbs/',
 
 	/*
 	|--------------------------------------------------------------------------
