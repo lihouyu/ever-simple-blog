@@ -82,6 +82,16 @@ function chkcomment(form)
     {
         document.getElementById("msg_comment_content").style.display = "none";
     }
+    if (/^\s*$/.test(form.elements["comment_vcode"].value))
+    {
+        document.getElementById("msg_comment_vcode").innerHTML = "<?php echo $lang['comment_vcode_empty']; ?>";
+        document.getElementById("msg_comment_vcode").style.display = "block";
+        has_error = true;
+    }
+    else
+    {
+        document.getElementById("msg_admin_vcode").style.display = "none";
+    }
     
     if (has_error)
     {
@@ -101,12 +111,31 @@ function chkcomment(form)
 <?php echo $lang['comment']; ?>:<br />
 <textarea name="comment_content" style="width:64%;height:200px;"></textarea>
 &nbsp;<span id="msg_comment_content" class="alert" style="display:none;"></span><br />
-<br /><input type="submit" name="submit" value="<?php echo $lang['post_comment']; ?>" />
+<?php echo $lang['comment_vcode']; ?>:<br /><input type="text" name="comment_vcode" value="" /><br />
+<span id="vcode"></span>
+<span id="msg_comment_vcode" class="alert" style="display:none;"></span><br />
+<input type="submit" name="submit" value="<?php echo $lang['post_comment']; ?>" />
 <input type="hidden" name="ac" value="10" />
 <input type="hidden" name="b" value="<?php echo $blog['serial']; ?>" />
 <input type="hidden" name="c" value="<?php echo $blog['category']; ?>" />
 </p>
 </form>
+<script type="text/javascript" src="jquery-min.js"></script>
+<script type="text/javascript">
+<!--
+$.get("vcode.php", function(data){
+  $("#vcode").append(data);
+});
+//-->
+</script>
+<?php
+if ($has_error)
+{
+?>
+<br /><span class="alert"><?php echo $lang[$error_msg]; ?></span>
+<?php
+}
+?>
 </div>
 <?php
 }

@@ -520,8 +520,12 @@ function comment_save($comment_serial, $comment_author, $comment_content)
     return $write_comment_rs;
 }
 
-function comment_create($blog_serial, $comment_author, $comment_content)
+function comment_create($blog_serial, $comment_author, $comment_content, $comment_vcode)
 {
+    if ($comment_vcode != $_SESSION[$_SERVER['HTTP_HOST']]['vcode']) {
+        return false;
+    }
+
     $comment_serial = $blog_serial.'#'.str_replace(' ', '-', microtime());
 
     return comment_save($comment_serial, $comment_author, $comment_content);
@@ -1148,10 +1152,14 @@ switch ($action)
     break;
     case '10': // add comment
         if (!referer_check()) die();
-
-        comment_create($blog_serial, $_POST['comment_author'], $_POST['comment_content']);
-
-        header('Location:index.php?b='.$blog_serial.'&c='.$category_name);
+        
+        $err_code = "";
+        if (!comment_create($blog_serial, $_POST['comment_author'], 
+            $_POST['comment_content'], $_POST['comment_vcode'])) {
+                $err_code = '&e=comment_failed';
+            }
+        
+        header('Location:index.php?b='.$blog_serial.'&c='.$category_name.$err_code);
         exit();
     break;
     case '11': // delete comment
@@ -1272,6 +1280,16 @@ switch ($action)
         }
     break;
     default: // blog list
+        if (isset($_GET['e']))
+        {
+            $has_error = true;
+            $error_msg = $_GET['e'];
+        }
+        else
+        {
+            $has_error = false;
+        }
+
         if (empty($blog_serial))
         {
         	$page_title = $lang['home'];
