@@ -1,10 +1,10 @@
 <h1><?php echo $lang['blog_form']; ?></h1>
 <script type="text/javascript" src="jquery-min.js"></script>
-<script type="text/javascript" src="tiny_mce/tinymce.gzip.js"></script>
+<script type="text/javascript" src="tiny_mce/tinymce.min.js"></script>
 <script type="text/javascript">
 <!--
-tinymce.init({
-    selector: "textarea#content",
+var objTinyMCE;
+var mceParams = {
     theme: "modern",
     menubar: false,
     image_advtab: true,
@@ -20,15 +20,15 @@ tinymce.init({
     filemanager_title: "Responsive Filemanager",
     external_plugins: { "filemanager": "<?php echo $context_root; ?>filemanager/plugin.min.js" },
     filemanager_sort_by: "name",
-});
+};
 
 function toggleEditor(id) {
-    tinymce.EditorManager.execCommand('mceToggleEditor', true, id);
-    //if (!tinymce.EditorManager.get(id)) {
-    //	tinymce.EditorManager.execCommand("mceAddControl", true, id);
-    //} else {
-    //	tinymce.EditorManager.execCommand("mceRemoveControl", true, id);
-    //}
+    if (!tinymce.EditorManager.get(id)) {
+	   objTinyMCE = tinymce.EditorManager.createEditor(id, mceParams);
+	   objTinyMCE.render();
+    } else {
+	   tinymce.EditorManager.execCommand('mceToggleEditor', true, id);
+    }
 }
 
 function checkblog(form)
