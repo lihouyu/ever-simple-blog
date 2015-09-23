@@ -23,11 +23,12 @@ tinymce.init({
 });
 
 function toggleEditor(id) {
-    if (!tinyMCE.get(id)) {
-    	tinymce.execCommand("mceAddControl", false, id);
-    } else {
-    	tinymce.execCommand("mceRemoveControl", false, id);
-    }
+    tinymce.EditorManager.execCommand('mceToggleEditor', true, id);
+    //if (!tinymce.EditorManager.get(id)) {
+    //	tinymce.EditorManager.execCommand("mceAddControl", true, id);
+    //} else {
+    //	tinymce.EditorManager.execCommand("mceRemoveControl", true, id);
+    //}
 }
 
 function checkblog(form)
