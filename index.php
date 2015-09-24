@@ -735,7 +735,7 @@ function referer_check()
     if (isset($_SERVER['HTTP_REFERER']))
     {
         $arr_referer = array();
-        preg_match('/^http:\/\/([^\/]+)/', $_SERVER['HTTP_REFERER'], $arr_referer);
+        preg_match('/^https?:\/\/([^\/]+)/', $_SERVER['HTTP_REFERER'], $arr_referer);
 
         if (isset($arr_referer[1]))
         {
