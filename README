@@ -1,14 +1,24 @@
-Copy secret-dist.php to secret.php to start blogging.
-For making it nicely working, you should configure $context_root and $your_tz
-properly at least. 
+Ever Simple Blog (ESiBlog)
 
-License of usage:
-  For using ESiBlog itself, there's no restriction.
-  But when using for commercial purpose, you may want to consult license
-  or developer of other projects listed below for restrictions, 
-  especially for Responsive Filemanager.
-  
-Other projects ESiBlog is using:
+Author: Li HouYu <lihouyu (at) phpex.net>, Shanghai, China
+
+Terms:
+These original codes of ESiBlog (Ever Simple Blog) are written and owned
+by Li HouYu. The ESiBlog, not including projects mentioned below, can used freely.
+
+Other projects included in ESiBlog:
  * GeSHi - Generic Syntax Highlighter -- http://qbnz.com/highlighter/
  * TinyMCE -- http://www.tinymce.com/
  * Responsive Filemanager -- http://www.responsivefilemanager.com/
+
+Please pay attention to and follow licenses of these projects mentioned above 
+when using ESiBlog. You may consider remove these projects from ESiBlog when
+there is any conflict with their licenses.
+
+Installation:
+Copy 'secret-dist.php' to 'secret.php'. And then manually edit the 'secret.php' file
+to match your needs.
+
+Li HouYu <lihouyu (at) phpex.net>
+Shanghai, China
+2015-09-24
