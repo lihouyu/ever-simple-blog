@@ -739,7 +739,11 @@ function referer_check()
 
         if (isset($arr_referer[1]))
         {
-            if (trim($arr_referer[1]) == $_SERVER['HTTP_HOST'])
+            if ($arr_referer[1] == $_SERVER['HTTP_HOST'])
+            {
+                return true;
+            }
+            else if ($arr_referer[1] == $_SERVER['HTTP_X_FORWARDED_HOST'])
             {
                 return true;
             }
