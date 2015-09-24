@@ -1319,7 +1319,7 @@ switch ($action)
         }
         else
         {
-            include_once 'geshi.php';
+            include_once 'geshi/geshi.php';
 
             $blog = blog_read($blog_serial, $category_name);
 
