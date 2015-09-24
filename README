@@ -16,8 +16,8 @@ when using ESiBlog. You may consider remove these projects from ESiBlog when
 there is any conflict with their licenses.
 
 Installation:
-Copy 'secret-dist.php' to 'secret.php'. And then manually edit the 'secret.php' file
-to match your needs.
+Copy 'secret-dist.php' to 'secret.php'.
+And then manually edit the 'secret.php' file to match your needs.
 
 Li HouYu <lihouyu (at) phpex.net>
 Shanghai, China
