@@ -32,7 +32,7 @@ for ($j = 0; $j < $n_imgs; $j++)
 $content = get_blog_short($blogs[$i]['content']);
 echo $content?$content.'<br />':'';
 ?>
-<a href="index.php?b=<?php echo $blogs[$i]['serial']; ?>&amp;c=<?php echo urlencode($blogs[$i]['category']); ?>"><?php echo $lang['readmore']; ?></a>&nbsp;&raquo;
+<a class="readmore" href="index.php?b=<?php echo $blogs[$i]['serial']; ?>&amp;c=<?php echo urlencode($blogs[$i]['category']); ?>"><?php echo $lang['readmore']; ?>&nbsp;...</a>
 <p class="meta">
 &laquo;&nbsp;
 <a href="index.php?b=<?php echo $blogs[$i]['serial']; ?>&amp;c=<?php echo urlencode($blogs[$i]['category']); ?>"><?php echo $lang['comment']; ?></a>

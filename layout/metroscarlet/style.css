@@ -52,6 +52,11 @@ div.blog
 margin: 4px;
 padding: 2px 8px;
 background: #fff;
+border: 1px solid #ffd8d1;
+}
+div.blog a.readmore
+{
+font-size: 85%;
 }
 
 span.alert
@@ -77,8 +82,8 @@ padding: 0;
 
 h1
 {
-margin: 3px 0 0 0;
-padding-bottom: 5px;
+margin: 5px 0 0 0;
+padding-bottom: 7px;
 color: #ff2400;
 font-size: 130%;
 border-bottom: 1px solid #b22222;
@@ -109,7 +114,7 @@ blockquote
 width: 30em;
 margin: 0 0 0 10px;
 padding: 5px;
-border-left: 1px solid #ffd8d1
+border-left: 4px solid #ffd8d1
 }
 
 /* Main box  surrounding everything*/
@@ -238,8 +243,8 @@ display:block;
 margin: 0;
 padding: 0;
 text-align:left;
-font-size: 90%;
-color: #666;
+font-size: 85%;
+color: #ff9999;
 background-color: inherit;
 }
 .htimeauth a
@@ -267,8 +272,8 @@ p.meta
 margin: 5px 0;
 padding: 0 2px 2px 2px;
 color:#ff2400;
-border: 1px solid #ffd8d1;
-font-size: 90%;
+border-top: 1px solid #ffd8d1;
+font-size: 85%;
 }
 p.meta a
 {
