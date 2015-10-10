@@ -171,7 +171,8 @@ margin: 5px 5px 0 5px;
 width: 602px;
 }
 
-#right a{color: #f00; text-decoration: none; background-color:inherit;}
+#right a{color: #b22222; text-decoration: none; background-color:inherit;}
+#right a:hover { color: #f00; text-decoration: underline; }
 
 /* Div classes Styles */
 
