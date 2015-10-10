@@ -1,0 +1,324 @@
+/* Hack for IE to display the margin on #right properly */
+* html #right {width:597px;}
+
+/* The default font size */
+* { font-size: 12px; }
+
+/* Body Styles */
+
+body
+{
+margin: 20px;
+background: #200000;
+font-size: 100%; 
+color: #000; 
+line-height: 1.5em;
+font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
+select
+{
+background: #fff;
+color: #ff2400;
+font-size: 100%;
+font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+font-weight: normal;
+}
+
+textarea
+{
+border: 1px solid #b22222;
+font-size: 100%;
+font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+
+input
+{
+border: 1px solid #b22222;
+background: #fff;
+color: #ff2400;
+font-size: 100%;
+font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+font-weight: normal;
+}
+
+input.noborder
+{
+border: 0px;
+}
+
+div.blog
+{
+margin: 4px;
+padding: 2px 8px;
+background: #fff;
+}
+
+span.alert
+{
+color: #f00;
+}
+
+tr.alt
+{
+background: #ffd8d1;
+}
+
+td
+{
+color: #fff;
+}
+
+p
+{
+margin: 5px 0 5px;
+padding: 0;
+}
+
+h1
+{
+margin: 3px 0 0 0;
+padding-bottom: 5px;
+color: #ff2400;
+font-size: 130%;
+border-bottom: 1px solid #b22222;
+background: inherit;
+}
+
+a{color: #f00; text-decoration: none; background: inherit;}
+a:hover {color: #ff2400; text-decoration: none; background: inherit;}
+
+ul
+{
+color: #ff2400;
+list-style-type: none;
+padding-left: 10px;
+margin: 0 0 5px;
+background: inherit;
+}
+
+li
+{
+font-size: 100%;
+font-weight: normal;
+padding: 0;
+}
+
+blockquote
+{
+width: 30em;
+margin: 0 0 0 10px;
+padding: 5px;
+border-left: 1px solid #ffd8d1
+}
+
+/* Main box  surrounding everything*/
+
+#outer
+{
+margin: 0 auto;
+width: 760px;
+overflow:auto;
+border: 1px solid #b22222;
+background-color: #fee;
+color: #ff2400;
+}
+
+#footer
+{
+text-align: center;
+color: #666;
+font-size: 80%;
+}
+#footer a
+{
+font-size: 100%;
+}
+
+/* Below is everything inside of #outer*/
+
+/* The path box e.g. /root/path */
+
+#location
+{
+margin: 8px 11px;
+padding: 0 2px 0 2px;
+color:#ff2400;
+border: none;
+font-size: 150%;
+line-height: auto;
+}
+#location strong
+{
+font-size: 100%;
+}
+
+/* The left column (nav) */
+
+#left
+{
+margin: 0;
+float: left;
+width: 148px;
+}
+
+/* The right column (content) */
+
+#right
+{
+float: right;
+margin: 5px 5px 0 5px;
+width: 602px;
+}
+
+#right a{color: #f00; text-decoration: none; background-color:inherit;}
+
+/* Div classes Styles */
+
+div .orange /* This is the orange bars that are on top of the main box and navs */
+{
+height: 5px;
+border-bottom: 1px solid #b22222;
+background-color: #ff2400;
+color: inherit;
+font-size: 0;
+}
+
+.navouter
+{
+border: 1px solid #b22222;
+width: auto;
+margin: 5px 0 5px 5px;
+background-color: #ffeeee;
+color: inherit;
+}
+
+.navheader
+{
+background-color: #ffd8d1;
+color: inherit;
+width: auto;
+border-bottom: 1px solid #b22222;
+padding: 2px 2px 2px 6px;
+margin-bottom: 5px;
+text-align: left;
+font-weight: bold;
+font-size: 120%;
+}
+
+.navcontent
+{
+padding: 5px;
+margin:0 0 0 3px;
+color: #ff2400;
+font-size:90%;
+font-weight:bold;
+background-color: #ffeeee;
+overflow: hidden;
+}
+
+/* This is for inserting code */
+.code
+{
+margin: 0 0 5px 10px;
+padding: 10px;
+width: 30em;
+font-family: helvetica, monospace;
+font-size: 90%;
+line-height: 150%;
+background-color: #ffeeee;
+color: inherit;
+border: 1px dotted #ffd8d1;
+}
+
+.htimeauth
+{
+display:block;
+margin: 0;
+padding: 0;
+text-align:left;
+font-size: 90%;
+color: #666;
+background-color: inherit;
+}
+.htimeauth a
+{
+font-size: 100%;
+}
+
+.blog_img_thumbs img
+{
+height: 80px;
+border: 1px solid #b22222;
+}
+
+div#pagebar ul
+{
+list-style: none;
+}
+div#pagebar ul li
+{
+display: inline;
+}
+
+p.meta
+{
+margin: 5px 0;
+padding: 0 2px 2px 2px;
+color:#ff2400;
+border: 1px solid #ffd8d1;
+font-size: 90%;
+}
+p.meta a
+{
+font-size: 100%;
+}
+
+/* The top vav bar */
+#topnav {
+margin: 0px 5px;
+}
+
+#topnav a {
+display: block;
+float: left;
+border-left: 1px solid #b22222;
+border-right: 1px solid #b22222;
+border-bottom: 1px solid #b22222;
+background-color: #ff2400;
+color: #fff;
+font-weight: bold;
+padding: 0px 6px;
+line-height: 24px;
+margin-right: 5px;
+font-size: 120%;
+}
+
+#topnav a:hover {
+background-color: #fff;
+color: #ff2400;
+}
+
+#global_err {
+margin: 0 auto;
+width: 760px;
+overflow:auto;
+border-top: 1px solid #ff5353;
+border-bottom: 1px solid #ff5353;
+background-color: #ffcdcd;
+color: #f00;
+font-size: 100%;
+}
+#global_err_msg {
+margin: 0px 4px;
+}
+
+.spacer {
+display: block;
+clear: both;
+height: 4px;
+}
+.clearer {
+display: block;
+clear: both;
+}
