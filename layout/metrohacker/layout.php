@@ -62,7 +62,7 @@ load_side_blocks();
 </div>
 
 <div id="footer">
-Copyright &copy; <?php echo date('Y').' '.$site_name; ?>. powered by <a href="http://www.bloggem.net">ESiBlog</a>.
+Copyright &copy; <?php echo date('Y').' '.$site_name; ?>. powered by <a href="https://github.com/lihouyu/ever-simple-blog">ESiBlog</a>.
 &nbsp;
 <?php
 if (!admin_check())
