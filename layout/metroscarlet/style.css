@@ -258,6 +258,10 @@ height: 80px;
 border: 1px solid #b22222;
 }
 
+div#pagebar
+{
+text-align: center;
+}
 div#pagebar ul
 {
 list-style: none;
@@ -274,6 +278,7 @@ padding: 0 2px 2px 2px;
 color:#ff2400;
 border-top: 1px solid #ffd8d1;
 font-size: 85%;
+text-align: center;
 }
 p.meta a
 {
