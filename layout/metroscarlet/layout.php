@@ -25,7 +25,10 @@ if ($sys_err)
 ?>
 
 <div id="outer">
-<div id="location"><strong><?php echo $site_name; ?></strong>&nbsp;[&nbsp;<?php echo $site_slogan; ?>&nbsp;]</div>
+<div id="location">
+<strong><?php echo $site_name; ?></strong>&nbsp;&nbsp;
+<span class="site_slogan"><?php echo $site_slogan; ?></span>
+</div>
 <div class="orange"></div>
 <div id="topnav">
 <a href="index.php"><?php echo $lang['home']; ?></a>

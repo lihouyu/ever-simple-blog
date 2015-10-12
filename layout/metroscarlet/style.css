@@ -146,16 +146,20 @@ font-size: 100%;
 
 #location
 {
-margin: 8px 11px;
-padding: 0 2px 0 2px;
-color:#ff2400;
+margin: 0;
+padding-left: 24px;
+color:#fff;
 border: none;
-font-size: 150%;
-line-height: auto;
+line-height: 80px;
+background: url(images/header_bg.jpg) left top;
 }
 #location strong
 {
-font-size: 100%;
+font-size: 180%;
+}
+#location span.site_slogan
+{
+font-style: italic;
 }
 
 /* The left column (nav) */
@@ -183,9 +187,8 @@ width: 602px;
 
 div .orange /* This is the orange bars that are on top of the main box and navs */
 {
-height: 5px;
 border-bottom: 1px solid #b22222;
-background-color: #ff2400;
+background: transparent;
 color: inherit;
 font-size: 0;
 }
