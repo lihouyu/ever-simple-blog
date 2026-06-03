@@ -1,0 +1,6 @@
+<Files "secret.json">
+    Require all denied
+</Files>
+<Files "secret.php">
+    Require all denied
+</Files>

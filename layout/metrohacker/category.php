@@ -1,53 +1,33 @@
-<h1><?php echo $lang['category_list']; ?></h1>
+<h1><?php echo h($lang['category_list']); ?></h1>
 <p>
-<?php
-if ($categories)
-{
-for ($i = 0, $size = count($categories); $i < $size; $i++)
-{
+<?php if ($categories):
+    for ($i = 0, $size = count($categories); $i < $size; $i++):
+        if ($categories[$i] === 'general') continue;
 ?>
-[&nbsp;<a href="index.php?ac=6&amp;c=<?php echo urlencode($categories[$i]); ?>"><?php echo $lang['delete']; ?></a>&nbsp;]
-&nbsp;<?php echo $categories[$i]; ?><br />
-<?php
-}
-}
-?>
+[&nbsp;<a href="index.php?ac=6&amp;c=<?php echo urlencode($categories[$i]); ?>&amp;csrf_token=<?php echo csrf_token(); ?>"><?php echo h($lang['delete']); ?></a>&nbsp;]
+&nbsp;<?php echo h($categories[$i]); ?><br />
+<?php endfor;
+endif; ?>
 </p>
-<br />
-<script type="text/javascript">
-<!--
-function checkcategory(form)
-{
-    var has_error = false;
-    
-    if (/^\s*$/.test(form.elements["c"].value))
-    {
-        document.getElementById("msg_c").innerHTML = "<?php echo $lang['category_name_empty']; ?>";
-        document.getElementById("msg_c").style.display = "block";
-        has_error = true;
-    }
-    else
-    {
-        document.getElementById("msg_c").style.display = "none";
-    }
-    
-    if (has_error)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-//-->
-</script>
-<form name="catefrm" action="index.php" method="post" onSubmit="return checkcategory(this);">
+<h1><?php echo h($lang['new_category']); ?></h1>
+<form name="catefrm" action="index.php" method="post">
+<input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>" />
 <p>
-<?php echo $lang['category_name']; ?>:
-<br /><input type="text" name="c" />
-&nbsp;<span id="msg_c" class="alert" style="display:none;"></span><br />
-<br /><input type="submit" name="csubmit" value="<?php echo $lang['add']; ?>" />
+<?php echo h($lang['category_name']); ?>:<br /><input type="text" name="c" value="" />
+&nbsp;<span id="msg_category" class="alert" style="display:none;"></span><br />
+<input type="submit" name="submit" value="<?php echo h($lang['add']); ?>" />
 <input type="hidden" name="ac" value="7" />
 </p>
 </form>
+<script>
+document.forms.catefrm.onsubmit = function() {
+    var el = document.getElementById('msg_category');
+    if (/^\s*$/.test(this.c.value)) {
+        el.textContent = '<?php echo addslashes($lang['category_name_empty']); ?>';
+        el.style.display = 'block';
+        return false;
+    }
+    el.style.display = 'none';
+    return true;
+};
+</script>
