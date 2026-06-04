@@ -198,6 +198,31 @@ function convert_geshi_blocks(string $content): string
  * Sanitize user-facing HTML. Strips scripts, event handlers, and
  * malicious attributes while preserving formatting and images.
  */
+/**
+ * Recode content inside <pre><code> blocks so that HTML-like characters
+ * survive TinyMCE's parser (e.g. <?php, <div> inside code blocks).
+ * Applied when loading content for editing.
+ */
+function recode_code_blocks(string $html): string
+{
+    return preg_replace_callback(
+        '/<pre[^>]*><code[^>]*>(.*?)<\/code><\/pre>/is',
+        function (array $m): string {
+            $inner = $m[1];
+            // Double-encode &lt; &gt; inside code blocks for TinyMCE editor.
+            // TinyMCE decodes once → visible &lt;text&gt; in the DOM,
+            // which won't be parsed as HTML tags/processing instructions.
+            $inner = str_replace(
+                ['&lt;', '&gt;'],
+                ['&amp;lt;', '&amp;gt;'],
+                $inner
+            );
+            return str_replace($m[1], $inner, $m[0]);
+        },
+        $html
+    );
+}
+
 function sanitize_html(string $html): string
 {
     // Remove script/style/iframe/object/embed entirely

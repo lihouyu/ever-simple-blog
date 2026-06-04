@@ -166,6 +166,9 @@ switch ($action) {
         $blog = false;
         if ($blog_serial !== '' && $category_name !== '') {
             $blog = blog_read($blog_serial, $category_name);
+            if ($blog !== false) {
+                $blog['content'] = recode_code_blocks($blog['content']);
+            }
         }
 
         $categories  = category_list();

@@ -1,5 +1,5 @@
 作者致言
 
 <p>非常欢迎您使用Ever Simple Blog (ESBlog)，这是一个非常简单的blog程序，主旨是实用，希望大家喜欢。</p>
-<p>以下是两段利用geshi显示源代码的效果：</p>
+<p>以下是显示源代码的效果：</p>
 <pre class="language-php"><code>&lt;?php phpinfo(); ?&gt;</code></pre>

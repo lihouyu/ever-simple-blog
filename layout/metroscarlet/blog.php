@@ -9,9 +9,36 @@ tinymce.init({
     promotion: false,
     branding: false,
     license_key: 'gpl',
+    codesample_languages: [
+        { text: 'HTML/XML', value: 'markup' },
+        { text: 'JavaScript', value: 'javascript' },
+        { text: 'CSS', value: 'css' },
+        { text: 'PHP', value: 'php' },
+        { text: 'Python', value: 'python' },
+        { text: 'Java', value: 'java' },
+        { text: 'C', value: 'c' },
+        { text: 'C++', value: 'cpp' },
+        { text: 'Bash', value: 'bash' },
+        { text: 'SQL', value: 'sql' },
+        { text: 'Plain Text', value: 'plaintext' },
+    ],
     images_upload_url: 'upload.php',
     images_upload_credentials: true,
     automatic_uploads: true,
+    setup: function(editor) {
+        editor.on('GetContent', function(e) {
+            // Decode double-encoded entities back on save
+            e.content = e.content.replace(
+                /<pre[^>]*><code[^>]*>([\s\S]*?)<\/code><\/pre>/gi,
+                function(m, inner) {
+                    return m.replace(inner, inner
+                        .replace(/&amp;lt;/g, '&lt;')
+                        .replace(/&amp;gt;/g, '&gt;')
+                    );
+                }
+            );
+        });
+    },
 });
 </script>
 <form name="blogfrm" action="index.php" method="post" onsubmit="return checkblog(this);">
