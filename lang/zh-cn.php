@@ -67,6 +67,12 @@ $lang = array(
     'back_to_top'    => '返回页首',
     'tz_error' => '时区错误！',
     'new_category' => '新建分类',
-    'new_blog' => '新建日志'
+    'new_blog' => '新建日志',
+    'images' => '图片',
+    'image_manager' => '图片管理',
+    'no_images' => '还没有上传图片',
+    'confirm_delete_image' => '确定删除这张图片？',
+    'image_deleted' => '图片已删除',
+    'image_delete_failed' => '删除图片失败',
 );
 ?>

@@ -67,6 +67,12 @@ $lang = array(
     'back_to_top'    => 'back to top',
     'tz_error' => 'timezone error!',
     'new_category' => 'new category',
-    'new_blog' => 'new blog'
+    'new_blog' => 'new blog',
+    'images' => 'images',
+    'image_manager' => 'image manager',
+    'no_images' => 'no images uploaded yet',
+    'confirm_delete_image' => 'delete this image?',
+    'image_deleted' => 'image deleted',
+    'image_delete_failed' => 'failed to delete image',
 );
 ?>

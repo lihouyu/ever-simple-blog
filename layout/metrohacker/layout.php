@@ -32,6 +32,7 @@
 <a href="#">|</a>
 <a href="index.php?ac=3"><?php echo h($lang['category']); ?></a>
 <a href="index.php?ac=4"><?php echo h($lang['blog']); ?></a>
+<a href="index.php?ac=14"><?php echo h($lang['images']); ?></a>
 <a href="index.php?ac=12"><?php echo h($lang['settings']); ?></a>
 <a href="index.php?ac=5"><?php echo h($lang['logout']); ?></a>
 <?php endif; ?>

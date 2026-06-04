@@ -360,6 +360,59 @@ switch ($action) {
         header('Location: index.php?ac=1&f=' . urlencode('index.php?ac=12'));
         exit;
 
+    // ── ac=14 : Image manager ───────────────────────────────────
+    case '14':
+        if (!admin_check()) {
+            header('Location: index.php?ac=1&f=' . urlencode('index.php?ac=14'));
+            exit;
+        }
+
+        $upload_dir = __DIR__ . '/upload/';
+        $images = [];
+        if (is_dir($upload_dir)) {
+            $dh = opendir($upload_dir);
+            if ($dh) {
+                while (false !== ($file = readdir($dh))) {
+                    if ($file === '.' || $file === '..' || $file === '.gitkeep') continue;
+                    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                    if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'])) {
+                        $images[] = [
+                            'name' => $file,
+                            'size' => filesize($upload_dir . $file),
+                            'url'  => 'upload/' . $file,
+                            'time' => filemtime($upload_dir . $file),
+                        ];
+                    }
+                }
+                closedir($dh);
+            }
+        }
+
+        $has_deleted = isset($_GET['d']);
+        $delete_error = isset($_GET['e']);
+
+        $page_title = $lang['image_manager'];
+        $page_body  = TPL_FOLDER . '/' . $site_tpl . '/images.php';
+        break;
+
+    // ── ac=15 : Delete image ───────────────────────────────────
+    case '15':
+        if (!csrf_verify($csrf_input)) die('Invalid security token.');
+        if (!admin_check()) { header('Location: index.php?ac=1'); exit; }
+
+        $img = basename($_GET['img'] ?? '');
+        $path = __DIR__ . '/upload/' . $img;
+        if ($img !== '' && file_exists($path) && is_file($path)) {
+            @unlink($path);
+            // Also delete thumbnail
+            $thumb = __DIR__ . '/thumbs/' . $img;
+            if (file_exists($thumb)) @unlink($thumb);
+            header('Location: index.php?ac=14&d=');
+        } else {
+            header('Location: index.php?ac=14&e=');
+        }
+        exit;
+
     // ── default : Blog list or single post view ─────────────────
     default:
         $has_error = isset($_GET['e']);

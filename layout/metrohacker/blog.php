@@ -23,6 +23,7 @@ tinymce.init({
         { text: 'Plain Text', value: 'plaintext' },
     ],
     images_upload_url: 'upload.php',
+    image_list: 'imagelist.php',
     images_upload_credentials: true,
     automatic_uploads: true,
     setup: function(editor) {
