@@ -45,7 +45,7 @@ if ($file['size'] > 10 * 1024 * 1024) { // 10MB max
     die(json_encode(['error' => 'File too large']));
 }
 
-// Generate safe filename
+// Generate safe filename — use custom title if provided
 $ext = match ($mime) {
     'image/jpeg' => '.jpg',
     'image/png'  => '.png',
@@ -54,7 +54,30 @@ $ext = match ($mime) {
     'image/svg+xml' => '.svg',
     default => '.bin',
 };
-$filename = date('Ymd-His-') . bin2hex(random_bytes(4)) . $ext;
+
+$title = $_POST['title'] ?? '';
+if ($title !== '') {
+    // Sanitize: allow Unicode letters, numbers, dash, underscore, dot
+    $title = preg_replace('/[\/\\\\\0<>:"|?*]+/u', '_', $title);
+    $title = trim($title, '.');
+    // Strip existing extension if it matches the detected one
+    if (str_ends_with(strtolower($title), $ext)) {
+        $title = substr($title, 0, -strlen($ext));
+    }
+    if ($title === '') {
+        $title = date('Ymd-His-') . bin2hex(random_bytes(4));
+    }
+    // Ensure unique filename
+    $base = $title;
+    $n = 1;
+    while (file_exists(__DIR__ . '/upload/' . $title . $ext)) {
+        $title = $base . '-' . $n;
+        $n++;
+    }
+    $filename = $title . $ext;
+} else {
+    $filename = date('Ymd-His-') . bin2hex(random_bytes(4)) . $ext;
+}
 $dest = __DIR__ . '/upload/' . $filename;
 
 if (!move_uploaded_file($file['tmp_name'], $dest)) {

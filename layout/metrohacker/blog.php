@@ -22,10 +22,28 @@ tinymce.init({
         { text: 'SQL', value: 'sql' },
         { text: 'Plain Text', value: 'plaintext' },
     ],
-    images_upload_url: 'upload.php',
-    image_list: 'imagelist.php',
-    images_upload_credentials: true,
-    automatic_uploads: true,
+    images_upload_handler: function(blobInfo, progress) {
+        return new Promise(function(resolve, reject) {
+            var filename = prompt('Filename:', blobInfo.filename());
+            if (!filename) { reject('Cancelled'); return; }
+            var fd = new FormData();
+            fd.append('file', blobInfo.blob(), filename);
+            fd.append('title', filename);
+            fetch('upload.php', { method: 'POST', body: fd, credentials: 'include' })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.location) resolve(data.location);
+                    else reject(data.error || 'Upload failed');
+                })
+                .catch(function(e) { reject('Network error: ' + e); });
+        });
+    },
+    image_list: function(success) {
+        fetch('imagelist.php', { credentials: 'include' })
+            .then(function(r) { return r.json(); })
+            .then(function(data) { success(data); })
+            .catch(function() { success([]); });
+    },
     setup: function(editor) {
         editor.on('GetContent', function(e) {
             // Decode double-encoded entities back on save

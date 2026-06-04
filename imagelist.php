@@ -36,7 +36,6 @@ if (is_dir($upload_dir)) {
                 $images[] = [
                     'title' => $file,
                     'value' => 'upload/' . $file,
-                    'menu'  => ['image' => ['src' => 'upload/' . $file, 'alt' => $file]],
                 ];
             }
         }
