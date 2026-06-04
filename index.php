@@ -103,7 +103,7 @@ $blog_serial            = $_POST['b']  ?? $_GET['b']  ?? '';
 $forward_page           = $_POST['f']  ?? $_GET['f']  ?? '';
 $comment_serial         = $_POST['bc'] ?? $_GET['bc'] ?? '';
 $template_name          = $_POST['t']  ?? $_GET['t']  ?? '';
-$csrf_input             = $_POST['csrf_token'] ?? '';
+$csrf_input             = $_POST['csrf_token'] ?? $_GET['csrf_token'] ?? '';
 $curr_page              = (int) ($_POST['p'] ?? $_GET['p'] ?? 1);
 
 // Optional template override via URL
