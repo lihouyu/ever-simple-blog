@@ -1,0 +1,48 @@
+# ESiBlog
+
+> *The Retro Time on Internet* — a flat-file PHP blog engine, no database needed.
+
+## Quick Start
+
+```bash
+cp secret-dist.json secret.json
+# edit secret.json
+php -S localhost:8080
+```
+
+## Project Structure
+
+- `index.php` — single-file HTTP router (entry point)
+- `lib/blog.php` — blog post CRUD (flat-file storage)
+- `lib/category.php` — category management
+- `lib/comment.php` — comment CRUD
+- `lib/auth.php` — authentication + CSRF protection
+- `lib/utils.php` — HTML sanitizer, page builder, helpers
+- `upload.php` — file upload handler (TinyMCE)
+- `filelist.php` — JSON endpoint listing uploaded files
+- `rss.php` — RSS 2.0 feed
+- `vcode.php` — Matrix-style CAPTCHA endpoint
+- `MatrixVCode.php` — CAPTCHA generator
+- `secret-dist.json` — config template
+- `migrate-config.php` — legacy secret.php → secret.json converter
+
+## Themes (layout/)
+
+- `metrohacker` — classic dark theme (orange accent)
+- `metroscarlet` — classic red theme
+- `metromodern` — modern dark theme (animations, cards)
+- `metrolight` — modern light theme
+
+## Data Storage
+
+- `blog/` — blog posts as plain text files (title + blank line + content)
+- `comment/` — comments as plain text files
+- `upload/` — uploaded media files
+- `thumbs/` — auto-generated image thumbnails
+
+## Tech Stack
+
+- PHP 8.1+
+- TinyMCE 7 (self-hosted in `assets/tinymce/`)
+- highlight.js 11 (self-hosted in `assets/highlight/`)
+- No database, no npm, no composer
