@@ -55,7 +55,18 @@
 </div>
 <?php endif; ?>
 <script>
-if (!window.opener || !window.opener.filePickerCallback) {
-    document.querySelectorAll('.pickbtn').forEach(function(el) { el.style.display = 'none'; });
+// TinyMCE popup: show only the file grid, hide site chrome
+if (window.opener && window.opener.filePickerCallback) {
+    document.querySelectorAll('.pickbtn').forEach(function(el) { el.style.display = ''; });
+    var outer = document.getElementById('outer');
+    // Extract the content area and replace body with it
+    var right = outer.querySelector('#right');
+    if (right) {
+        right.style.float = 'none';
+        right.style.width = '100%';
+        right.style.padding = '8px';
+        document.body.innerHTML = right.outerHTML;
+    }
+    document.body.style.padding = '0';
 }
 </script>
