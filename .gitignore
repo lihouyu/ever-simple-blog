@@ -7,3 +7,5 @@
 !/upload/.gitkeep
 /thumbs/*
 !/thumbs/.gitkeep
+/blog/cate_*/*
+!/blog/cate_*/.gitkeep
