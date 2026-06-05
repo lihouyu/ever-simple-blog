@@ -441,7 +441,6 @@ switch ($action) {
             $page_title = $lang['home'];
 
             if ($archive_date !== '') {
-                breadcrumb_add($lang['archive']);
                 breadcrumb_add($archive_date);
                 $blogs      = blog_list_by_archive($archive_date);
                 $page_title = $lang['archive'] . ' :: ' . h($archive_date);
