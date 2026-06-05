@@ -85,6 +85,7 @@ $lang = array(
     'file_deleted' => '文件已删除',
     'file_delete_failed' => '删除文件失败',
     'view' => '查看',
+    'pick' => '选择',
     'upload' => '上传',
 );
 ?>

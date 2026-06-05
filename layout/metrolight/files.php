@@ -10,7 +10,6 @@
 <p><?php echo h($lang['file_deleted']); ?></p>
 <?php endif; ?>
 
-<!-- Upload form -->
 <form action="index.php" method="post" enctype="multipart/form-data" style="margin-bottom:18px;padding:12px;border:1px dashed var(--border);border-radius:6px;">
 <input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>" />
 <input type="hidden" name="ac" value="16" />
@@ -37,6 +36,8 @@
     };
     $size_kb = $f['size'] / 1024;
     $size_str = $size_kb > 1024 ? number_format($size_kb / 1024, 1) . ' MB' : number_format($size_kb, 1) . ' KB';
+    $pick_url = addslashes($f['url']);
+    $pick_name = addslashes($f['name']);
 ?>
 <div style="text-align:center;width:140px;padding:8px;border:1px solid var(--border);border-radius:6px;background:var(--card-alt);">
     <?php if ($is_img): ?>
@@ -48,10 +49,8 @@
     <div style="font-size:9px;color:var(--text-dim);"><?php echo $size_str; ?> &middot; <?php echo date('Y-m-d', $f['time']); ?></div>
     <div style="margin-top:4px;">
         <a href="<?php echo h($f['url']); ?>" target="_blank" style="font-size:10px;margin-right:8px;"><?php echo h($lang['view']); ?></a>
-        <a href="#" onclick="if(window.opener&&window.opener.filePickerCallback){window.opener.filePickerCallback('<?php echo addslashes($f['url']); ?>','<?php echo addslashes($f['name']); ?>');window.close();return false;}" style="font-size:10px;color:var(--accent);margin-right:8px;">pick</a>
-        <a href="index.php?ac=15&amp;file=<?php echo urlencode($f['name']); ?>&amp;csrf_token=<?php echo csrf_token(); ?>"
-           onclick="return confirm('<?php echo addslashes($lang['confirm_delete_file']); ?>')"
-           style="font-size:10px;color:#f85149;"><?php echo h($lang['delete']); ?></a>
+        <a href="#" onclick="if(window.opener&&window.opener.filePickerCallback){window.opener.filePickerCallback('<?php echo $pick_url; ?>','<?php echo $pick_name; ?>');window.close();return false;}" style="font-size:10px;color:var(--accent);margin-right:8px;"><?php echo h($lang['pick']); ?></a>
+        <a href="index.php?ac=15&amp;file=<?php echo urlencode($f['name']); ?>&amp;csrf_token=<?php echo csrf_token(); ?>" onclick="return confirm('<?php echo addslashes($lang['confirm_delete_file']); ?>')" style="font-size:10px;color:#f85149;"><?php echo h($lang['delete']); ?></a>
     </div>
 </div>
 <?php endforeach; ?>

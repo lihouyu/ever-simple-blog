@@ -85,6 +85,7 @@ $lang = array(
     'file_deleted' => 'file deleted',
     'file_delete_failed' => 'failed to delete file',
     'view' => 'view',
+    'pick' => 'pick',
     'upload' => 'upload',
 );
 ?>
