@@ -1,3 +1,6 @@
+RewriteEngine On
+RewriteRule ^llms\.txt$ llms.php [L]
+
 <Files "secret.json">
     Require all denied
 </Files>
