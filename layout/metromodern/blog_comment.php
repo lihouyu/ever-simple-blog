@@ -5,7 +5,7 @@
 &nbsp;|&nbsp;
 <?php echo h($lang['category']); ?>: <a href="index.php?c=<?php echo urlencode($blog['category']); ?>">
 <?php echo h($blog['category']); ?></a></div>
-<?php echo $blog['content']; // Raw HTML from TinyMCE — admin-edited content ?>
+<?php echo $blog['content']; ?>
 <?php if (admin_check()): ?>
 <p class="meta">
 &laquo;&nbsp;
@@ -15,6 +15,7 @@
 <?php endif; ?>
 </div>
 
+<?php if ($comment_enabled): ?>
 <div class="blog">
 <h1><?php echo h($lang['comment']); ?></h1>
 <?php if ($comments):
@@ -85,4 +86,5 @@ fetch('vcode.php')
 <br /><span class="alert"><?php echo h($lang[$error_msg] ?? ''); ?></span>
 <?php endif; ?>
 </div>
+<?php endif; ?>
 <?php endif; ?>

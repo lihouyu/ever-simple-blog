@@ -84,6 +84,7 @@ endif; ?>
 <?php echo h($lang['enable_uri_tpl']); ?>:<br /><input type="checkbox" name="enable_uri_tpl" value="1"<?php if ($enable_uri_tpl) echo ' checked'; ?> /><br />
 <?php echo h($lang['context_root']); ?>:<br /><input type="text" name="context_root" value="<?php echo h($context_root); ?>" /><br />
 <?php echo h($lang['gzip_output']); ?>:<br /><input type="checkbox" name="gzip_output" value="1"<?php if ($gzip_output) echo ' checked'; ?> /><br />
+<?php echo h($lang['comment_enabled']); ?>:<br /><input type="checkbox" name="comment_enabled" value="1"<?php if ($comment_enabled) echo ' checked'; ?> /><br />
 <?php echo h($lang['blocks']); ?>:<br /><input type="text" name="blocks" value="<?php echo h($block_str); ?>" size="64" /><br />
 <?php echo h($lang['avail_blocks']); ?>:<br /><strong><?php echo h($avail_blocks_str); ?></strong><br />
 <input type="submit" name="submit" value="<?php echo h($lang['save']); ?>" />

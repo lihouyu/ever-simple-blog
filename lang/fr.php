@@ -88,5 +88,6 @@ $lang = array(
     'view' => 'voir',
     'pick' => 'choisir',
     'upload' => 'téléverser',
+    'comment_enabled' => 'activer les commentaires',
 );
 ?>

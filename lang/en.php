@@ -88,5 +88,6 @@ $lang = array(
     'view' => 'view',
     'pick' => 'pick',
     'upload' => 'upload',
+    'comment_enabled' => 'enable comments',
 );
 ?>

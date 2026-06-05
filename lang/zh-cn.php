@@ -88,5 +88,6 @@ $lang = array(
     'view' => '查看',
     'pick' => '选择',
     'upload' => '上传',
+    'comment_enabled' => '启用评论',
 );
 ?>

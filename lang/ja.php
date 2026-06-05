@@ -88,5 +88,6 @@ $lang = array(
     'view' => '表示',
     'pick' => '選択',
     'upload' => 'アップロード',
+    'comment_enabled' => 'コメントを有効',
 );
 ?>

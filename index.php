@@ -36,6 +36,7 @@ $enable_uri_tpl  = (bool)   ($config['enable_uri_tpl']  ?? false);
 $context_root    = (string) ($config['context_root']    ?? '/');
 $gzip_output     = (bool)   ($config['gzip_output']     ?? false);
 $your_tz         = (string) ($config['your_tz']         ?? '');
+$comment_enabled = (bool)   ($config['comment_enabled'] ?? true);
 $blocks          = (array)  ($config['blocks']          ?? []);
 
 // ── Path constants ──────────────────────────────────────────────────
@@ -364,6 +365,7 @@ switch ($action) {
                 'context_root'   => $_POST['context_root']   ?? $context_root,
                 'gzip_output'    => ($_POST['gzip_output']   ?? '0') === '1',
                 'your_tz'        => trim($_POST['your_tz']    ?? $your_tz),
+                'comment_enabled' => ($_POST['comment_enabled'] ?? '0') === '1',
                 'blocks'         => array_values($new_blocks),
             ];
 
