@@ -336,3 +336,27 @@ height: 4px;
 display: block;
 clear: both;
 }
+
+#right {
+    padding: 0 8px 8px;
+    width: 581px;
+}
+
+div.blog {
+    background: #2e1a1a;
+    border: 1px solid #5a2a2a;
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+}
+
+#breadcrumb {
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    font-size: 11px;
+    border-bottom: 1px solid #5a2a2a;
+    color: #c99;
+}
+#breadcrumb a { color: #c99; }
+#breadcrumb a:hover { color: #b22222; }
+#breadcrumb span { color: #b22222; }
