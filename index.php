@@ -474,6 +474,35 @@ switch ($action) {
         $filename = $title . $ext;
         move_uploaded_file($tmp, __DIR__ . '/upload/' . $filename);
 
+        // Generate thumbnail for images
+        if (str_starts_with($mime, 'image/') && $mime !== 'image/svg+xml' && function_exists('imagecreatetruecolor')) {
+            $dest = __DIR__ . '/upload/' . $filename;
+            $thumb_dest = __DIR__ . '/thumbs/' . $filename;
+            [$src_w, $src_h] = getimagesize($dest);
+            $tw = 200;
+            $th = (int) ($src_h * ($tw / $src_w));
+            $src_img = match ($mime) {
+                'image/jpeg' => imagecreatefromjpeg($dest),
+                'image/png'  => imagecreatefrompng($dest),
+                'image/gif'  => imagecreatefromgif($dest),
+                'image/webp' => imagecreatefromwebp($dest),
+                default => null,
+            };
+            if ($src_img) {
+                $thumb_img = imagecreatetruecolor($tw, $th);
+                imagecopyresampled($thumb_img, $src_img, 0, 0, 0, 0, $tw, $th, $src_w, $src_h);
+                match ($mime) {
+                    'image/jpeg' => imagejpeg($thumb_img, $thumb_dest, 85),
+                    'image/png'  => imagepng($thumb_img, $thumb_dest, 6),
+                    'image/gif'  => imagegif($thumb_img, $thumb_dest),
+                    'image/webp' => imagewebp($thumb_img, $thumb_dest, 85),
+                    default => null,
+                };
+                imagedestroy($src_img);
+                imagedestroy($thumb_img);
+            }
+        }
+
         header('Location: index.php?ac=14&u=');
         exit;
 
