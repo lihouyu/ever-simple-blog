@@ -273,6 +273,10 @@ switch ($action) {
             die('Invalid security token.');
         }
 
+        if (!$comment_enabled) {
+            die('Comments are disabled.');
+        }
+
         $err_code = '';
         $comment_vcode = $_POST['comment_vcode'] ?? '';
 
