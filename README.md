@@ -17,7 +17,7 @@ A flat-file PHP blog engine. No database required — just PHP 8.1+ and a writab
 - Syntax highlighting via highlight.js
 - Matrix-style CAPTCHA for comments and login
 - Four built-in themes (metrohacker dark, metroscarlet red, metromodern modern dark, metrolight modern light)
-- i18n support (English, Simplified Chinese)
+- i18n support (English, Simplified Chinese, Japanese, French)
 - Admin panel with settings management (edit config via web UI)
 - RSS 2.0 feed
 - Dynamic `/llms.txt` endpoint for LLM indexing
