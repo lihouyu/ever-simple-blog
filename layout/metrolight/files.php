@@ -47,9 +47,15 @@
     <div style="font-size:9px;color:var(--text-dim);"><?php echo $size_str; ?> &middot; <?php echo date('Y-m-d', $f['time']); ?></div>
     <div style="margin-top:4px;">
         <a href="<?php echo h($f['url']); ?>" target="_blank" style="font-size:10px;margin-right:8px;"><?php echo h($lang['view']); ?></a>
+        <a href="#" onclick="if(window.opener&&window.opener.filePickerCallback){window.opener.filePickerCallback('<?php echo addslashes($f['url']); ?>','<?php echo addslashes($f['name']); ?>');window.close();return false;}" class="pickbtn" style="font-size:10px;color:var(--accent);margin-right:8px;"><?php echo h($lang['pick']); ?></a>
         <a href="index.php?ac=15&amp;file=<?php echo urlencode($f['name']); ?>&amp;csrf_token=<?php echo csrf_token(); ?>" onclick="return confirm('<?php echo addslashes($lang['confirm_delete_file']); ?>')" style="font-size:10px;color:#f85149;"><?php echo h($lang['delete']); ?></a>
     </div>
 </div>
 <?php endforeach; ?>
 </div>
 <?php endif; ?>
+<script>
+if (!window.opener || !window.opener.filePickerCallback) {
+    document.querySelectorAll('.pickbtn').forEach(function(el) { el.style.display = 'none'; });
+}
+</script>
