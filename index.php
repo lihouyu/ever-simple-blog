@@ -114,11 +114,21 @@ if ($enable_uri_tpl && $template_name !== '') {
     }
 }
 
+// ── Breadcrumb helper ──────────────────────────────────────────────
+$breadcrumb = [];
+
+function breadcrumb_add(string $label, string $url = ''): void {
+    global $breadcrumb;
+    $breadcrumb[] = ['label' => $label, 'url' => $url];
+}
+
 // ── Route ───────────────────────────────────────────────────────────
 switch ($action) {
 
     // ── ac=1 : Show login form ──────────────────────────────────
     case '1':
+        breadcrumb_add($lang['home'], 'index.php');
+        breadcrumb_add($lang['admin_login']);
         if (admin_check()) {
             header('Location: index.php');
             exit;
@@ -148,6 +158,8 @@ switch ($action) {
 
     // ── ac=3 : Category management form ─────────────────────────
     case '3':
+        breadcrumb_add($lang['home'], 'index.php');
+        breadcrumb_add($lang['category']);
         if (!admin_check()) {
             header('Location: index.php?ac=1&f=' . urlencode('index.php?ac=3'));
             exit;
@@ -159,6 +171,8 @@ switch ($action) {
 
     // ── ac=4 : Blog editor (create / edit) ──────────────────────
     case '4':
+        breadcrumb_add($lang['home'], 'index.php');
+        breadcrumb_add($lang['blog']);
         if (!admin_check()) {
             header('Location: index.php?ac=1&f=' . urlencode('index.php?ac=4'));
             exit;
@@ -294,6 +308,8 @@ switch ($action) {
 
     // ── ac=12 : Settings form ───────────────────────────────────
     case '12':
+        breadcrumb_add($lang['home'], 'index.php');
+        breadcrumb_add($lang['settings']);
         if (!admin_check()) {
             header('Location: index.php?ac=1&f=' . urlencode('index.php?ac=12'));
             exit;
@@ -362,6 +378,8 @@ switch ($action) {
 
     // ── ac=14 : Image manager ───────────────────────────────────
     case '14':
+        breadcrumb_add($lang['home'], 'index.php');
+        breadcrumb_add($lang['images']);
         if (!admin_check()) {
             header('Location: index.php?ac=1&f=' . urlencode('index.php?ac=14'));
             exit;
@@ -415,6 +433,7 @@ switch ($action) {
 
     // ── default : Blog list or single post view ─────────────────
     default:
+        breadcrumb_add($lang['home'], 'index.php');
         $has_error = isset($_GET['e']);
         $error_msg = $_GET['e'] ?? '';
 
@@ -422,14 +441,18 @@ switch ($action) {
             $page_title = $lang['home'];
 
             if ($archive_date !== '') {
+                breadcrumb_add($lang['archive']);
+                breadcrumb_add($archive_date);
                 $blogs      = blog_list_by_archive($archive_date);
                 $page_title = $lang['archive'] . ' :: ' . h($archive_date);
             } elseif ($category_name !== '') {
+                breadcrumb_add($category_name, 'index.php?c=' . urlencode($category_name));
                 $blogs      = blog_list_by_category($category_name);
                 $page_title = $lang['category'] . ' :: ' . h($category_name);
             } else {
                 $blogs = blog_list($search_key);
                 if (trim($search_key) !== '') {
+                    breadcrumb_add($lang['search'] . ': ' . h($search_key));
                     $page_title = $lang['search'] . ' :: ' . h($search_key);
                 }
             }
@@ -447,6 +470,11 @@ switch ($action) {
                 $page_body  = false;
                 break;
             }
+            if (!empty($archive_date)) {
+                breadcrumb_add($archive_date, 'index.php?a=' . urlencode($archive_date));
+            }
+            breadcrumb_add($blog['category'], 'index.php?c=' . urlencode($blog['category']));
+            breadcrumb_add($blog['title']);
             $blog['content'] = sanitize_html($blog['content']);
 
             $comments = comment_sort(comment_list_by_blog($blog_serial) ?: []);

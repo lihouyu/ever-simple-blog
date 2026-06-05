@@ -1,9 +1,12 @@
 <?php
+$archive_param = (!empty($archive_date)) ? '&amp;a=' . urlencode($archive_date) : '';
+
 if ($blogs):
     for ($i = 0, $size = count($blogs); $i < $size; $i++):
         $blog_imgs = get_blog_imgs($blogs[$i]['content']);
         $n_imgs = count($blog_imgs);
         $short = get_blog_short($blogs[$i]['content']);
+        $link = 'index.php?b=' . urlencode($blogs[$i]['serial']) . '&amp;c=' . urlencode($blogs[$i]['category']) . $archive_param;
 ?>
 <div class="blog">
 <h1><?php echo h($blogs[$i]['title']); ?></h1>
@@ -21,10 +24,10 @@ if ($blogs):
 <?php if ($short !== false): ?>
 <?php echo $short; ?><br />
 <?php endif; ?>
-<a class="readmore" href="index.php?b=<?php echo urlencode($blogs[$i]['serial']); ?>&amp;c=<?php echo urlencode($blogs[$i]['category']); ?>"><?php echo h($lang['readmore']); ?>&nbsp;...</a>
+<a href="<?php echo $link; ?>"><?php echo h($lang['readmore']); ?></a>&nbsp;&raquo;
 <p class="meta">
 &laquo;&nbsp;
-<a href="index.php?b=<?php echo urlencode($blogs[$i]['serial']); ?>&amp;c=<?php echo urlencode($blogs[$i]['category']); ?>"><?php echo h($lang['comment']); ?></a>
+<a href="<?php echo $link; ?>"><?php echo h($lang['comment']); ?></a>
 &nbsp;|&nbsp;
 <a href="#top"><?php echo h($lang['back_to_top']); ?></a>
 <?php if (admin_check()): ?>

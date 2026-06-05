@@ -40,6 +40,19 @@
 
 <div class="clearer"></div>
 
+<div id="breadcrumb">
+<?php if (!empty($breadcrumb)): ?>
+<?php foreach ($breadcrumb as $i => $crumb): ?>
+<?php if ($i > 0): ?>&nbsp;&rsaquo;&nbsp;<?php endif; ?>
+<?php if ($crumb['url'] !== '' && $i < count($breadcrumb) - 1): ?>
+<a href="<?php echo h($crumb['url']); ?>"><?php echo h($crumb['label']); ?></a>
+<?php else: ?>
+<span><?php echo h($crumb['label']); ?></span>
+<?php endif; ?>
+<?php endforeach; ?>
+<?php endif; ?>
+</div>
+
 <div id="right">
 <?php include_once $page_body; ?>
 </div>
