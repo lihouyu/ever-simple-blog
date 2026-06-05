@@ -150,7 +150,14 @@ switch ($action) {
             $_POST['admin_pwd']   ?? '',
             $_POST['admin_vcode'] ?? ''
         )) {
-            $redirect = ($forward_page !== '') ? $forward_page : 'index.php';
+            $redirect = 'index.php';
+            if ($forward_page !== '' && (
+                str_starts_with($forward_page, '/') ||
+                str_starts_with($forward_page, 'index.php') ||
+                str_starts_with($forward_page, './')
+            )) {
+                $redirect = $forward_page;
+            }
             header('Location: ' . $redirect);
             exit;
         }
@@ -450,8 +457,9 @@ switch ($action) {
 
         // Reuse upload.php logic inline (or redirect to it)
         $tmp  = $_FILES['file']['tmp_name'];
-        $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $tmp);
-        finfo_close(finfo_open(FILEINFO_MIME_TYPE));
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $tmp);
+        finfo_close($finfo);
 
         $ext_map = [
             'image/jpeg' => '.jpg','image/png' => '.png','image/gif' => '.gif',
