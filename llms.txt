@@ -1,0 +1,27 @@
+# ESiBlog — Ever Simple Blog
+
+> *The Retro Time on Internet*
+
+A flat-file PHP blog engine. No database — just PHP 8.1+ and a writable filesystem.
+
+## Docs
+
+- [README](README.md) — full project documentation, installation, features, security
+
+## Core
+
+- [index.php](index.php) — single-file HTTP router
+- [lib/blog.php](lib/blog.php) — blog CRUD (flat-file)
+- [lib/category.php](lib/category.php) — category management
+- [lib/comment.php](lib/comment.php) — comment CRUD
+- [lib/auth.php](lib/auth.php) — authentication + CSRF
+- [lib/utils.php](lib/utils.php) — HTML sanitizer, pagination, template helpers
+- [upload.php](upload.php) — file upload handler
+- [filelist.php](filelist.php) — JSON file list for TinyMCE
+
+## Optional
+
+- [rss.php](rss.php) — RSS 2.0 feed
+- [vcode.php](vcode.php) — CAPTCHA endpoint
+- [secret-dist.json](secret-dist.json) — config template
+- [llms.txt](llms.txt) — this file
