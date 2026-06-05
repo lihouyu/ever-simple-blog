@@ -14,7 +14,7 @@
 <input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>" />
 <input type="hidden" name="ac" value="16" />
 <strong><?php echo h($lang['upload_file']); ?>:</strong>
-<input type="file" name="file" id="fupload" style="margin:0 8px;" onchange="var n=this.files[0].name;var t=document.getElementById('ftitle');if(!t.value)t.value=n.slice(0,n.lastIndexOf('.'));" />
+<input type="file" name="file" id="fupload" style="margin:0 8px;" onchange="var n=this.files[0].name;var t=document.getElementById('ftitle');if(!t.value)t.value=n;" />
 <input type="text" name="title" id="ftitle" placeholder="<?php echo h($lang['custom_filename']); ?>" size="24" style="margin:0 8px;" />
 <input type="submit" value="<?php echo h($lang['upload']); ?>" />
 <span style="font-size:11px;color:var(--text-dim);margin-left:8px;"><?php echo h($lang['max_50mb']); ?></span>
