@@ -471,8 +471,9 @@ switch ($action) {
             }
             if (!empty($archive_date)) {
                 breadcrumb_add($archive_date, 'index.php?a=' . urlencode($archive_date));
+            } else {
+                breadcrumb_add($blog['category'], 'index.php?c=' . urlencode($blog['category']));
             }
-            breadcrumb_add($blog['category'], 'index.php?c=' . urlencode($blog['category']));
             breadcrumb_add($blog['title']);
             $blog['content'] = sanitize_html($blog['content']);
 
