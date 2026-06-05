@@ -27,8 +27,10 @@ if ($blogs):
 <a href="<?php echo $link; ?>"><?php echo h($lang['readmore']); ?></a>&nbsp;&raquo;
 <p class="meta">
 &laquo;&nbsp;
+<?php if ($comment_enabled): ?>
 <a href="<?php echo $link; ?>"><?php echo h($lang['comment']); ?></a>
 &nbsp;|&nbsp;
+<?php endif; ?>
 <a href="#top"><?php echo h($lang['back_to_top']); ?></a>
 <?php if (admin_check()): ?>
 &nbsp;|&nbsp;
