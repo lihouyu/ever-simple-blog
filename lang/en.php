@@ -74,5 +74,17 @@ $lang = array(
     'confirm_delete_image' => 'delete this image?',
     'image_deleted' => 'image deleted',
     'image_delete_failed' => 'failed to delete image',
+    'files' => 'files',
+    'file_manager' => 'file manager',
+    'upload_file' => 'upload file',
+    'custom_filename' => 'filename (optional)',
+    'max_50mb' => 'max 50MB',
+    'file_uploaded' => 'file uploaded successfully',
+    'no_files' => 'no files uploaded yet',
+    'confirm_delete_file' => 'delete this file?',
+    'file_deleted' => 'file deleted',
+    'file_delete_failed' => 'failed to delete file',
+    'view' => 'view',
+    'upload' => 'upload',
 );
 ?>

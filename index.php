@@ -376,59 +376,105 @@ switch ($action) {
         header('Location: index.php?ac=1&f=' . urlencode('index.php?ac=12'));
         exit;
 
-    // ── ac=14 : Image manager ───────────────────────────────────
+    // ── ac=14 : File manager ─────────────────────────────────────
     case '14':
         breadcrumb_add($lang['home'], 'index.php');
-        breadcrumb_add($lang['images']);
+        breadcrumb_add($lang['files']);
         if (!admin_check()) {
             header('Location: index.php?ac=1&f=' . urlencode('index.php?ac=14'));
             exit;
         }
 
         $upload_dir = __DIR__ . '/upload/';
-        $images = [];
+        $files = [];
         if (is_dir($upload_dir)) {
             $dh = opendir($upload_dir);
             if ($dh) {
                 while (false !== ($file = readdir($dh))) {
                     if ($file === '.' || $file === '..' || $file === '.gitkeep') continue;
-                    $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                    if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'])) {
-                        $images[] = [
-                            'name' => $file,
-                            'size' => filesize($upload_dir . $file),
-                            'url'  => 'upload/' . $file,
-                            'time' => filemtime($upload_dir . $file),
-                        ];
-                    }
+                    if (!is_file($upload_dir . $file)) continue;
+                    $files[] = [
+                        'name' => $file,
+                        'size' => filesize($upload_dir . $file),
+                        'url'  => 'upload/' . $file,
+                        'time' => filemtime($upload_dir . $file),
+                    ];
                 }
                 closedir($dh);
             }
         }
+        usort($files, fn($a, $b) => strcasecmp($a['name'], $b['name']));
 
-        $has_deleted = isset($_GET['d']);
-        $delete_error = isset($_GET['e']);
+        $uploaded      = isset($_GET['u']);
+        $has_deleted   = isset($_GET['d']);
+        $delete_error  = isset($_GET['e']);
 
-        $page_title = $lang['image_manager'];
-        $page_body  = TPL_FOLDER . '/' . $site_tpl . '/images.php';
+        $page_title = $lang['file_manager'];
+        $page_body  = TPL_FOLDER . '/' . $site_tpl . '/files.php';
         break;
 
-    // ── ac=15 : Delete image ───────────────────────────────────
+    // ── ac=15 : Delete file ─────────────────────────────────────
     case '15':
         if (!csrf_verify($csrf_input)) die('Invalid security token.');
         if (!admin_check()) { header('Location: index.php?ac=1'); exit; }
 
-        $img = basename($_GET['img'] ?? '');
-        $path = __DIR__ . '/upload/' . $img;
-        if ($img !== '' && file_exists($path) && is_file($path)) {
+        $fname = basename($_GET['file'] ?? '');
+        $path = __DIR__ . '/upload/' . $fname;
+        if ($fname !== '' && file_exists($path) && is_file($path)) {
             @unlink($path);
-            // Also delete thumbnail
-            $thumb = __DIR__ . '/thumbs/' . $img;
+            $thumb = __DIR__ . '/thumbs/' . $fname;
             if (file_exists($thumb)) @unlink($thumb);
             header('Location: index.php?ac=14&d=');
         } else {
             header('Location: index.php?ac=14&e=');
         }
+        exit;
+
+    // ── ac=16 : Upload file ─────────────────────────────────────
+    case '16':
+        if (!csrf_verify($csrf_input)) die('Invalid security token.');
+        if (!admin_check()) { header('Location: index.php?ac=1'); exit; }
+
+        if (empty($_FILES['file']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK) {
+            header('Location: index.php?ac=14&e=');
+            exit;
+        }
+
+        // Reuse upload.php logic inline (or redirect to it)
+        $tmp  = $_FILES['file']['tmp_name'];
+        $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $tmp);
+        finfo_close(finfo_open(FILEINFO_MIME_TYPE));
+
+        $ext_map = [
+            'image/jpeg' => '.jpg','image/png' => '.png','image/gif' => '.gif',
+            'image/webp' => '.webp','image/svg+xml' => '.svg',
+            'application/pdf' => '.pdf','application/zip' => '.zip',
+            'application/x-rar-compressed' => '.rar','application/gzip' => '.gz',
+            'text/plain' => '.txt','text/csv' => '.csv',
+            'application/json' => '.json','application/xml' => '.xml',
+            'application/msword' => '.doc',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => '.docx',
+            'application/vnd.ms-excel' => '.xls',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => '.xlsx',
+            'audio/mpeg' => '.mp3','video/mp4' => '.mp4',
+        ];
+        $ext = $ext_map[$mime] ?? '.bin';
+
+        $title = $_POST['title'] ?? '';
+        $title = preg_replace('/[\/\\\\\0<>:"|?*]+/u', '_', $title);
+        if ($title !== '' && str_ends_with(strtolower($title), $ext)) {
+            $title = substr($title, 0, -strlen($ext));
+        }
+        $title = ($title !== '') ? $title : date('Ymd-His-') . bin2hex(random_bytes(4));
+
+        $base = $title; $n = 1;
+        while (file_exists(__DIR__ . '/upload/' . $title . $ext)) {
+            $title = $base . '-' . $n; $n++;
+        }
+        $filename = $title . $ext;
+        move_uploaded_file($tmp, __DIR__ . '/upload/' . $filename);
+
+        header('Location: index.php?ac=14&u=');
         exit;
 
     // ── default : Blog list or single post view ─────────────────

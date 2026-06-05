@@ -22,6 +22,10 @@ tinymce.init({
         { text: 'SQL', value: 'sql' },
         { text: 'Plain Text', value: 'plaintext' },
     ],
+    file_picker_callback: function(cb, value, meta) {
+        var w = window.open('index.php?ac=14', 'filepicker', 'width=700,height=500');
+        window.filePickerCallback = function(url, title) { cb(url, {text: title, title: title}); w.close(); };
+    },
     images_upload_handler: function(blobInfo, progress) {
         return new Promise(function(resolve, reject) {
             var filename = prompt('Filename:', blobInfo.filename());
@@ -37,12 +41,6 @@ tinymce.init({
                 })
                 .catch(function(e) { reject('Network error: ' + e); });
         });
-    },
-    image_list: function(success) {
-        fetch('imagelist.php', { credentials: 'include' })
-            .then(function(r) { return r.json(); })
-            .then(function(data) { success(data); })
-            .catch(function() { success([]); });
     },
     setup: function(editor) {
         editor.on('GetContent', function(e) {

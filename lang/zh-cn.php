@@ -74,5 +74,17 @@ $lang = array(
     'confirm_delete_image' => '确定删除这张图片？',
     'image_deleted' => '图片已删除',
     'image_delete_failed' => '删除图片失败',
+    'files' => '文件',
+    'file_manager' => '文件管理',
+    'upload_file' => '上传文件',
+    'custom_filename' => '文件名（可选）',
+    'max_50mb' => '最大 50MB',
+    'file_uploaded' => '文件上传成功',
+    'no_files' => '还没有上传文件',
+    'confirm_delete_file' => '确定删除这个文件？',
+    'file_deleted' => '文件已删除',
+    'file_delete_failed' => '删除文件失败',
+    'view' => '查看',
+    'upload' => '上传',
 );
 ?>
