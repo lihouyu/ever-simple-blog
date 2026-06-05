@@ -227,19 +227,25 @@ p.meta a { color: var(--accent); }
 /* ── Pager ────────────────────────────────────────────────── */
 
 #pagebar { text-align: center; margin-top: 12px; }
-#pagebar ul { list-style: none; }
-#pagebar ul li { display: inline; margin: 0 2px; }
-#pagebar ul li a {
+#pagebar ul { list-style: none; display: inline-flex; align-items: center; gap: 3px; }
+#pagebar li a,
+#pagebar li span {
+    display: inline-block;
+    min-width: 28px;
     padding: 4px 8px;
-    border: 1px solid var(--border);
     border-radius: 3px;
-    font-size: 12px;
+    font-size: 11px;
+    text-align: center;
+    border: 1px solid var(--border);
     background: var(--card-alt);
+    color: var(--text-dim);
+    transition: all var(--transition);
 }
-#pagebar ul li a:hover {
-    background: var(--accent);
-    color: var(--bg);
-}
+#pagebar li a:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+#pagebar li.pgcur span { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+#pagebar li.pgsep { color: var(--text-dim); padding: 4px 2px; font-size: 11px; }
+#pagebar li.pgarr a { font-size: 13px; font-weight: 700; }
+#pagebar li.pgarr a:hover { background: var(--card-alt); color: var(--accent); }
 
 /* ── Code blocks ─────────────────────────────────────────── */
 

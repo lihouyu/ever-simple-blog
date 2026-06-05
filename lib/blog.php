@@ -361,12 +361,33 @@ function blog_page(int $curr_page, array $blog_array): array
     $prev_page = max(1, $curr_page - 1);
     $next_page = min($total_pages, $curr_page + 1);
 
+    // Build page number links with a sliding window
+    $page_links = '';
+    $window = 2;
+    $start = max(1, $curr_page - $window);
+    $end = min($total_pages, $curr_page + $window);
+
+    if ($start > 1) {
+        $page_links .= '<li class="pgnum"><a href="' . pager_build_uri(1) . '">1</a></li>';
+        if ($start > 2) $page_links .= '<li class="pgsep">&hellip;</li>';
+    }
+    for ($p = $start; $p <= $end; $p++) {
+        if ($p === $curr_page) {
+            $page_links .= '<li class="pgnum pgcur"><span>' . $p . '</span></li>';
+        } else {
+            $page_links .= '<li class="pgnum"><a href="' . pager_build_uri($p) . '">' . $p . '</a></li>';
+        }
+    }
+    if ($end < $total_pages) {
+        if ($end < $total_pages - 1) $page_links .= '<li class="pgsep">&hellip;</li>';
+        $page_links .= '<li class="pgnum"><a href="' . pager_build_uri($total_pages) . '">' . $total_pages . '</a></li>';
+    }
+
     $pager_html = '<div id="pagebar"><ul>'
-        . '<li>&nbsp;<a href="' . pager_build_uri(1) . '">&laquo;</a>&nbsp;</li>'
-        . '<li>&nbsp;<a href="' . pager_build_uri($prev_page) . '">&lsaquo;</a>&nbsp;</li>'
-        . '<li>&nbsp;<a href="' . pager_build_uri($next_page) . '">&rsaquo;</a>&nbsp;</li>'
-        . '<li>&nbsp;<a href="' . pager_build_uri($total_pages) . '">&raquo;</a>&nbsp;</li>'
-        . '<li>&nbsp;' . $curr_page . '&nbsp;/&nbsp;' . $total_pages . '&nbsp;</li></ul></div>';
+        . '<li class="pgarr"><a href="' . pager_build_uri($prev_page) . '">&lsaquo;</a></li>'
+        . $page_links
+        . '<li class="pgarr"><a href="' . pager_build_uri($next_page) . '">&rsaquo;</a></li>'
+        . '</ul></div>';
 
     return ['blogs' => $blogs, 'pager' => $pager_html];
 }
