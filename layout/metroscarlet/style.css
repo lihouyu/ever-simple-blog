@@ -1,364 +1,307 @@
-/* Hack for IE to display the margin on #right properly */
-* html #right {width:597px;}
+/*
+ * Metroscarlet — Classic red theme for ESiBlog (rewritten)
+ * Color palette: #3d3d3d (bg), #333 (card), #b22222 (accent), #fff (text)
+ */
 
-/* The default font size */
-* { font-size: 12px; }
-
-/* Body Styles */
-
-body
-{
-margin: 20px;
-background: #200000;
-font-size: 100%; 
-color: #000; 
-line-height: 1.5em;
-font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+:root {
+    --bg: #3d3d3d;
+    --card: #333;
+    --card-alt: #3a2a2a;
+    --accent: #b22222;
+    --accent-glow: rgba(178, 34, 34, 0.12);
+    --text: #fff;
+    --text-dim: #c99;
+    --border: #5a2a2a;
+    --radius: 6px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.25);
+    --transition: 0.2s ease;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: Consolas, "Fira Code", monospace;
 }
 
-select
-{
-background: #fff;
-color: #ff2400;
-font-size: 100%;
-font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
-font-weight: normal;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font: 13px/1.6 var(--font);
+    padding: 20px;
 }
 
-textarea
-{
-border: 1px solid #b22222;
-font-size: 100%;
-font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+a { color: var(--text); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--accent); }
+
+h1 {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--accent);
 }
 
-input
-{
-border: 1px solid #b22222;
-background: #fff;
-color: #ff2400;
-font-size: 100%;
-font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
-font-weight: normal;
+p { margin: 6px 0; }
+
+input, select, textarea {
+    background: #2a1a1a;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 10px;
+    font: 13px var(--font);
+    transition: border-color var(--transition);
+}
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+}
+textarea { width: 100%; font-family: var(--mono); font-size: 12px; }
+
+blockquote {
+    border-left: 2px solid var(--accent);
+    margin: 8px 0 8px 8px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 0 4px 4px 0;
+    color: var(--text-dim);
 }
 
-input.noborder
-{
-border: 0px;
+/* ── Layout ──────────────────────────────────────────────── */
+
+#outer {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid #222;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
 }
 
-div.blog
-{
-margin: 4px;
-padding: 2px 8px;
-background: #fff;
-border: 1px solid #ffd8d1;
+#location {
+    padding: 12px 16px 0;
+    font-size: 12px;
+    color: var(--text);
+    margin: 4px 8px;
+    background: inherit;
 }
-div.blog a.readmore
-{
-font-size: 85%;
+#location strong {
+    color: var(--text);
+    font-size: 13px;
 }
-
-span.alert
-{
-color: #f00;
-}
-
-tr.alt
-{
-background: #ffd8d1;
+.site_slogan {
+    color: var(--text-dim);
+    font-style: italic;
 }
 
-td
-{
-color: #fff;
+.orange {
+    height: 4px;
+    background: var(--accent);
+    border-bottom: 1px solid #222;
+    margin: 8px 0 0;
 }
 
-p
-{
-margin: 5px 0 5px;
-padding: 0;
-}
-
-h1
-{
-margin: 5px 0 0 0;
-padding-bottom: 7px;
-color: #ff2400;
-font-size: 130%;
-border-bottom: 1px solid #b22222;
-background: inherit;
-}
-
-a{color: #f00; text-decoration: none; background: inherit;}
-a:hover {color: #ff2400; text-decoration: none; background: inherit;}
-
-ul
-{
-color: #ff2400;
-list-style-type: none;
-padding-left: 10px;
-margin: 0 0 5px;
-background: inherit;
-}
-
-li
-{
-font-size: 100%;
-font-weight: normal;
-padding: 0;
-}
-
-blockquote
-{
-width: 30em;
-margin: 0 0 0 10px;
-padding: 5px;
-border-left: 4px solid #ffd8d1
-}
-
-/* Main box  surrounding everything*/
-
-#outer
-{
-margin: 0 auto;
-width: 760px;
-overflow:auto;
-border: 1px solid #b22222;
-background-color: #fee;
-color: #ff2400;
-}
-
-#footer
-{
-text-align: center;
-color: #666;
-font-size: 80%;
-}
-#footer a
-{
-font-size: 100%;
-}
-
-/* Below is everything inside of #outer*/
-
-/* The path box e.g. /root/path */
-
-#location
-{
-margin: 0;
-padding-left: 24px;
-color:#fff;
-border: none;
-line-height: 80px;
-background: url(images/header_bg.jpg) left top;
-}
-#location strong
-{
-font-size: 180%;
-}
-#location span.site_slogan
-{
-font-style: italic;
-}
-
-/* The left column (nav) */
-
-#left
-{
-margin: 0;
-float: left;
-width: 148px;
-}
-
-/* The right column (content) */
-
-#right
-{
-float: right;
-margin: 5px 5px 0 5px;
-width: 602px;
-}
-
-#right a{color: #b22222; text-decoration: none; background-color:inherit;}
-#right a:hover { color: #f00; text-decoration: underline; }
-
-/* Div classes Styles */
-
-div .orange /* This is the orange bars that are on top of the main box and navs */
-{
-border-bottom: 1px solid #b22222;
-background: transparent;
-color: inherit;
-font-size: 0;
-}
-
-.navouter
-{
-border: 1px solid #b22222;
-width: auto;
-margin: 5px 0 5px 5px;
-background-color: #ffeeee;
-color: inherit;
-}
-
-.navheader
-{
-background-color: #ffd8d1;
-color: inherit;
-width: auto;
-border-bottom: 1px solid #b22222;
-padding: 2px 2px 2px 6px;
-margin-bottom: 5px;
-text-align: left;
-font-weight: bold;
-font-size: 120%;
-}
-
-.navcontent
-{
-padding: 5px;
-margin:0 0 0 3px;
-color: #ff2400;
-font-size:90%;
-font-weight:bold;
-background-color: #ffeeee;
-overflow: hidden;
-}
-
-/* This is for inserting code */
-.code
-{
-margin: 0 0 5px 10px;
-padding: 10px;
-width: 30em;
-font-family: helvetica, monospace;
-font-size: 90%;
-line-height: 150%;
-background-color: #ffeeee;
-color: inherit;
-border: 1px dotted #ffd8d1;
-}
-
-.htimeauth
-{
-display:block;
-margin: 0;
-padding: 0;
-text-align:left;
-font-size: 85%;
-color: #ff9999;
-background-color: inherit;
-}
-.htimeauth a
-{
-font-size: 100%;
-}
-
-.blog_img_thumbs img
-{
-height: 80px;
-border: 1px solid #b22222;
-}
-
-div#pagebar
-{
-text-align: center;
-}
-div#pagebar ul
-{
-list-style: none;
-}
-div#pagebar ul li
-{
-display: inline;
-}
-
-p.meta
-{
-margin: 5px 0;
-padding: 0 2px 2px 2px;
-color:#ff2400;
-border-top: 1px solid #ffd8d1;
-font-size: 85%;
-text-align: center;
-}
-p.meta a
-{
-font-size: 100%;
-}
-
-/* The top vav bar */
 #topnav {
-margin: 0px 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 8px 16px;
 }
-
 #topnav a {
-display: block;
-float: left;
-border-left: 1px solid #b22222;
-border-right: 1px solid #b22222;
-border-bottom: 1px solid #b22222;
-background-color: #ff2400;
-color: #fff;
-font-weight: bold;
-padding: 0px 6px;
-line-height: 24px;
-margin-right: 5px;
-font-size: 120%;
+    display: inline-block;
+    padding: 4px 10px;
+    border-left: 1px solid #222;
+    border-right: 1px solid #222;
+    border-bottom: 1px solid #222;
+    background: #663333;
+    font-size: 12px;
+    color: var(--text);
 }
-
 #topnav a:hover {
-background-color: #fff;
-color: #ff2400;
+    background: #774444;
 }
 
-#global_err {
-margin: 0 auto;
-width: 760px;
-overflow:auto;
-border-top: 1px solid #ff5353;
-border-bottom: 1px solid #ff5353;
-background-color: #ffcdcd;
-color: #f00;
-font-size: 100%;
-}
-#global_err_msg {
-margin: 0px 4px;
-}
-
-.spacer {
-display: block;
-clear: both;
-height: 4px;
-}
-.clearer {
-display: block;
-clear: both;
-}
+.clearer { display: block; clear: both; }
 
 #right {
-    background: #2e1a1a;
-    border: 1px solid #5a2a2a;
-    border-radius: 4px;
-    padding: 14px 16px;
-    width: 565px;
+    float: right;
+    width: 76%;
+    padding: 12px 16px;
+    min-height: 400px;
+}
+#right a { color: var(--accent); }
+#right a:hover { color: #f00; }
+
+#left {
+    float: left;
+    width: 24%;
+    padding: 12px 0 12px 12px;
 }
 
-div.blog {
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #5a2a2a;
+#footer {
+    text-align: center;
+    padding: 16px;
+    color: var(--text-dim);
+    font-size: 10px;
 }
-div.blog:last-child { border-bottom: none; }
+
+/* ── Blog posts ──────────────────────────────────────────── */
+
+div.blog {
+    background: var(--card-alt);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+}
+
+div.blog h1 {
+    font-size: 14px;
+    text-transform: none;
+    letter-spacing: normal;
+    border: none;
+    margin-bottom: 4px;
+    padding: 0;
+    color: var(--accent);
+}
+
+.htimeauth {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.blog_img_thumbs {
+    display: flex;
+    gap: 6px;
+    margin: 6px 0;
+}
+.blog_img_thumbs img {
+    height: 60px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+p.meta {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--accent);
+}
+p.meta a { color: var(--accent); }
+
+/* ── Sidebar ─────────────────────────────────────────────── */
+
+.navouter {
+    border: 1px solid #222;
+    margin-bottom: 8px;
+    background: #5a3a3a;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.navheader {
+    background: #4a2a2a;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid #222;
+    color: var(--text);
+}
+
+.navcontent {
+    padding: 6px 10px;
+    font-size: 11px;
+}
+.navcontent ul { list-style: none; padding: 0; }
+.navcontent li { padding: 3px 0; }
+.navcontent li a { color: var(--text); }
+.navcontent li a:hover { color: var(--accent); }
+
+/* ── Pager ────────────────────────────────────────────────── */
+
+#pagebar { text-align: center; margin-top: 12px; }
+#pagebar ul { list-style: none; }
+#pagebar ul li { display: inline; margin: 0 2px; }
+#pagebar ul li a {
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 12px;
+    background: var(--card-alt);
+}
+#pagebar ul li a:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+/* ── Code blocks ─────────────────────────────────────────── */
+
+pre {
+    background: #1a1a1a;
+    border: 1px dotted var(--border);
+    border-radius: 4px;
+    padding: 10px;
+    overflow-x: auto;
+    font: 11px/1.5 var(--mono);
+    margin: 8px 0;
+}
+
+/* ── Alerts ──────────────────────────────────────────────── */
+
+span.alert { color: #f85149; }
+
+#global_err {
+    max-width: 760px;
+    margin: 0 auto 8px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: rgba(248,81,73,0.1);
+    border: 1px solid rgba(248,81,73,0.3);
+    color: #f85149;
+    font-size: 12px;
+}
+.spacer { height: 6px; }
+
+/* ── Forms ────────────────────────────────────────────────── */
+
+form input[type="submit"] {
+    background: var(--card-alt);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+}
+form input[type="submit"]:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+/* ── Breadcrumb ──────────────────────────────────────────── */
 
 #breadcrumb {
     margin-bottom: 10px;
     padding-bottom: 6px;
     font-size: 11px;
-    border-bottom: 1px solid #5a2a2a;
-    color: #c99;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
 }
-#breadcrumb a { color: #c99; }
-#breadcrumb a:hover { color: #b22222; }
-#breadcrumb span { color: #b22222; }
+#breadcrumb a { color: var(--text-dim); }
+#breadcrumb a:hover { color: var(--accent); }
+#breadcrumb span { color: var(--accent); }
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+    body { padding: 8px; }
+    #right, #left { float: none; width: 100%; padding: 10px; }
+    #topnav { padding: 6px 10px; }
+}
