@@ -1,3 +1,9 @@
 /secret.php
 /secret.json
 /index.php.bak
+
+# Keep directories but ignore content
+/upload/*
+!/upload/.gitkeep
+/thumbs/*
+!/thumbs/.gitkeep
