@@ -1,6 +1,6 @@
 <?php if ($blog): ?>
 <div class="blog">
-<h1><?php echo h($blog['title']); ?></h1>
+<h1><?php echo h($blog['title']); ?><?php if (sticky_is($blog['serial'])): ?> 📌<?php endif; ?></h1>
 <div class="htimeauth"><?php echo date('Y-m-d H:i', $blog['timestamp']); ?>
 &nbsp;|&nbsp;
 <?php echo h($lang['category']); ?>: <a href="index.php?c=<?php echo urlencode($blog['category']); ?>">

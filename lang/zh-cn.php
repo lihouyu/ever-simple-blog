@@ -68,6 +68,7 @@ $lang = array(
     'tz_error' => '时区错误！',
     'new_category' => '新建分类',
     'new_blog' => '新建日志',
+    'sticky' => '置顶',
     'images' => '图片',
     'image_manager' => '图片管理',
     'no_images' => '还没有上传图片',

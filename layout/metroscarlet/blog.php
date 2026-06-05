@@ -76,6 +76,8 @@ endif; ?>
 <?php echo h($lang['content']); ?>:<br />
 <textarea id="content" name="content" rows="18" cols="72"><?php echo ($blog['content'] ?? ''); ?></textarea><br />
 <br />
+<label><input type="checkbox" name="sticky" value="1"<?php if (($blog['serial'] ?? '') !== '' && sticky_is($blog['serial'])) echo ' checked'; ?> /> <?php echo h($lang['sticky']); ?></label><br />
+<br />
 <input type="submit" name="bsubmit" value="<?php echo h($lang['save']); ?>" />
 <input type="hidden" name="b" value="<?php echo h($blog['serial'] ?? ''); ?>" />
 <input type="hidden" name="pc" value="<?php echo h($blog['category'] ?? ''); ?>" />

@@ -288,10 +288,16 @@ function sort_by_timestamp(array $items): array
     return $items;
 }
 
-/** Backward-compatible alias. */
 function blog_sort(array $arr_blog_list): array
 {
-    return sort_by_timestamp($arr_blog_list);
+    // Sticky posts first, then by timestamp descending
+    usort($arr_blog_list, function (array $a, array $b): int {
+        $sa = sticky_is($a['serial']) ? 1 : 0;
+        $sb = sticky_is($b['serial']) ? 1 : 0;
+        if ($sa !== $sb) return $sb <=> $sa;
+        return $b['timestamp'] <=> $a['timestamp'];
+    });
+    return $arr_blog_list;
 }
 
 /** Sort archive strings (e.g. "Jun 2025") descending. */
@@ -299,6 +305,30 @@ function archive_sort(array $arr_archive_list): array
 {
     usort($arr_archive_list, fn(string $a, string $b): int => strtotime($b) <=> strtotime($a));
     return $arr_archive_list;
+}
+
+// ── Sticky posts ────────────────────────────────────────────────
+
+function sticky_list(): array {
+    $file = __DIR__ . '/../sticky.json';
+    if (!file_exists($file)) return [];
+    $data = json_decode(file_get_contents($file), true);
+    return is_array($data) ? $data : [];
+}
+
+function sticky_set(string $serial, bool $sticky): void {
+    $file = __DIR__ . '/../sticky.json';
+    $list = sticky_list();
+    if ($sticky) {
+        if (!in_array($serial, $list, true)) $list[] = $serial;
+    } else {
+        $list = array_values(array_filter($list, fn($s) => $s !== $serial));
+    }
+    file_put_contents($file, json_encode($list, JSON_PRETTY_PRINT));
+}
+
+function sticky_is(string $serial): bool {
+    return in_array($serial, sticky_list(), true);
 }
 
 // ── Pager ────────────────────────────────────────────────────────

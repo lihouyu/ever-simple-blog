@@ -68,6 +68,7 @@ $lang = array(
     'tz_error' => 'timezone error!',
     'new_category' => 'new category',
     'new_blog' => 'new blog',
+    'sticky' => 'pin to top',
     'images' => 'images',
     'image_manager' => 'image manager',
     'no_images' => 'no images uploaded yet',

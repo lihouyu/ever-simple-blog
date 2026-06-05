@@ -9,7 +9,7 @@ if ($blogs):
         $link = 'index.php?b=' . urlencode($blogs[$i]['serial']) . '&amp;c=' . urlencode($blogs[$i]['category']) . $archive_param;
 ?>
 <div class="blog">
-<h1><?php echo h($blogs[$i]['title']); ?></h1>
+<h1><?php echo h($blogs[$i]['title']); ?><?php if (sticky_is($blogs[$i]['serial'])): ?> 📌<?php endif; ?></h1>
 <div class="htimeauth"><?php echo date('Y-m-d H:i', $blogs[$i]['timestamp']); ?>
 &nbsp;|&nbsp;
 <?php echo h($lang['category']); ?>: <a href="index.php?c=<?php echo urlencode($blogs[$i]['category']); ?>">

@@ -234,17 +234,19 @@ switch ($action) {
         }
 
         if (admin_check()) {
-            $title   = mb_substr($_POST['title']   ?? '', 0, 500, 'UTF-8');
-            $content = $_POST['content'] ?? '';
+        $title   = mb_substr($_POST['title']   ?? '', 0, 500, 'UTF-8');
+        $content = $_POST['content'] ?? '';
+        $sticky  = ($_POST['sticky'] ?? '0') === '1';
 
-            if ($blog_serial !== '') {
-                blog_save($blog_serial, $title, $content, $previous_category_name);
-                if ($category_name !== '' && $category_name !== $previous_category_name) {
-                    blog_move($blog_serial, $previous_category_name, $category_name);
-                }
-            } else {
-                $blog_serial = blog_create($title, $content, $category_name !== '' ? $category_name : 'general');
+        if ($blog_serial !== '') {
+            blog_save($blog_serial, $title, $content, $previous_category_name);
+            if ($category_name !== '' && $category_name !== $previous_category_name) {
+                blog_move($blog_serial, $previous_category_name, $category_name);
             }
+        } else {
+            $blog_serial = blog_create($title, $content, $category_name !== '' ? $category_name : 'general');
+        }
+        sticky_set($blog_serial, $sticky);
 
             header('Location: index.php?b=' . urlencode($blog_serial) . '&c=' . urlencode($category_name));
             exit;
