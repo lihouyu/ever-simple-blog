@@ -244,8 +244,8 @@ p.meta a { color: var(--accent); }
 #pagebar li a:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 #pagebar li.pgcur span { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
 #pagebar li.pgsep { color: var(--text-dim); padding: 4px 2px; font-size: 11px; }
-#pagebar li.pgarr a { font-size: 13px; font-weight: 700; }
-#pagebar li.pgarr a:hover { background: var(--card-alt); color: var(--accent); }
+#pagebar li.pgarr a { font-size: 13px; font-weight: 700; border-color: transparent; background: transparent; min-width: auto; }
+#pagebar li.pgarr a:hover { background: transparent; color: var(--accent); }
 
 /* ── Code blocks ─────────────────────────────────────────── */
 

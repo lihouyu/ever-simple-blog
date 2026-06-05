@@ -284,8 +284,8 @@ p.meta a { color: var(--accent); }
 #pagebar li a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 #pagebar li.pgcur span { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
 #pagebar li.pgsep { color: var(--text-dim); padding: 6px 2px; font-size: 13px; }
-#pagebar li.pgarr a { font-size: 15px; font-weight: 700; }
-#pagebar li.pgarr a:hover { background: #fff; color: var(--accent); }
+#pagebar li.pgarr a { font-size: 15px; font-weight: 700; border-color: transparent; background: transparent; min-width: auto; }
+#pagebar li.pgarr a:hover { background: transparent; color: var(--accent); }
 
 /* ── Code blocks ─────────────────────────────────────────── */
 
