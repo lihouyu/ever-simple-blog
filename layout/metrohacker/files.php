@@ -62,6 +62,7 @@ if (window.opener && window.opener.filePickerCallback) {
     // Extract the content area and replace body with it
     var right = outer.querySelector('#right');
     if (right) {
+        var bc = right.querySelector('#breadcrumb'); if (bc) bc.style.display = 'none';
         right.style.float = 'none';
         right.style.width = '100%';
         right.style.padding = '8px';
