@@ -25,7 +25,7 @@ function blog_save(
     string $category_name = 'general'
 ): int|false {
     $blog_file = BLOG_FOLDER . '/cate_' . base64_encode($category_name) . '/' . $blog_serial;
-    $blog_title = htmlspecialchars($blog_title, ENT_QUOTES, 'UTF-8');
+    // Title is stored raw — escaping happens at output (h() in templates).
     return file_put_contents($blog_file, $blog_title . "\n\n" . $blog_content);
 }
 
@@ -309,11 +309,13 @@ function archive_sort(array $arr_archive_list): array
 
 // ── Sticky posts ────────────────────────────────────────────────
 
-function sticky_list(): array {
+function sticky_list(bool $refresh = false): array {
+    static $cache = null;
+    if ($cache !== null && !$refresh) return $cache;
     $file = __DIR__ . '/../sticky.json';
-    if (!file_exists($file)) return [];
+    if (!file_exists($file)) return $cache = [];
     $data = json_decode(file_get_contents($file), true);
-    return is_array($data) ? $data : [];
+    return $cache = (is_array($data) ? $data : []);
 }
 
 function sticky_set(string $serial, bool $sticky): void {
@@ -325,6 +327,7 @@ function sticky_set(string $serial, bool $sticky): void {
         $list = array_values(array_filter($list, fn($s) => $s !== $serial));
     }
     file_put_contents($file, json_encode($list, JSON_PRETTY_PRINT));
+    sticky_list(true); // refresh static cache after write
 }
 
 function sticky_is(string $serial): bool {

@@ -24,8 +24,7 @@ function comment_save(
     string $comment_content
 ): int|false {
     $comment_file = COMMENT_FOLDER . '/' . $comment_serial;
-    $comment_author  = htmlspecialchars($comment_author, ENT_QUOTES, 'UTF-8');
-    $comment_content = htmlspecialchars($comment_content, ENT_QUOTES, 'UTF-8');
+    // Author/content are stored raw — escaping happens at output (h() in templates).
     return file_put_contents($comment_file, $comment_author . "\n\n" . $comment_content);
 }
 

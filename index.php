@@ -534,16 +534,16 @@ switch ($action) {
             if ($archive_date !== '') {
                 breadcrumb_add($archive_date);
                 $blogs      = blog_list_by_archive($archive_date);
-                $page_title = $lang['archive'] . ' :: ' . h($archive_date);
+                $page_title = $lang['archive'] . ' :: ' . $archive_date;
             } elseif ($category_name !== '') {
                 breadcrumb_add($category_name, 'index.php?c=' . urlencode($category_name));
                 $blogs      = blog_list_by_category($category_name);
-                $page_title = $lang['category'] . ' :: ' . h($category_name);
+                $page_title = $lang['category'] . ' :: ' . $category_name;
             } else {
                 $blogs = blog_list($search_key);
                 if (trim($search_key) !== '') {
-                    breadcrumb_add($lang['search'] . ': ' . h($search_key));
-                    $page_title = $lang['search'] . ' :: ' . h($search_key);
+                    breadcrumb_add($lang['search'] . ': ' . $search_key);
+                    $page_title = $lang['search'] . ' :: ' . $search_key;
                 }
             }
 

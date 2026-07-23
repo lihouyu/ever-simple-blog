@@ -6,6 +6,12 @@ declare(strict_types=1);
  * Usage: php migrate-config.php
  */
 
+// CLI only — web access would let anyone overwrite secret.json with legacy config
+if (PHP_SAPI !== 'cli') {
+    http_response_code(403);
+    exit('This script can only be run from the command line.');
+}
+
 if (!file_exists(__DIR__ . '/secret.php')) {
     echo "secret.php not found. Nothing to migrate.\n";
     echo "Copy secret-dist.json to secret.json and edit it instead.\n";

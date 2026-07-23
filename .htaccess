@@ -1,9 +1,19 @@
 RewriteEngine On
 RewriteRule ^llms\.txt$ llms.php [L]
 
+# Never serve VCS or backup files
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.gitignore$
+
 <Files "secret.json">
     Require all denied
 </Files>
 <Files "secret.php">
     Require all denied
 </Files>
+<Files "sticky.json">
+    Require all denied
+</Files>
+<FilesMatch "^migrate-.*\.php$">
+    Require all denied
+</FilesMatch>

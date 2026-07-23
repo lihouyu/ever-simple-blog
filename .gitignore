@@ -12,3 +12,6 @@
 # Only track the default blog post
 /blog/cate_*/0.59375400-1167620739.2007-01-01
 /blog/cate_*/*
+
+# Local data backups
+/backups/
